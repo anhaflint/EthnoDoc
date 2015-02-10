@@ -1,3 +1,7 @@
+ethno_doc_publication:
+    resource: "@EthnoDocPublicationBundle/Resources/config/routing.yml"
+    prefix:   /
+
 app:
     resource: @AppBundle/Controller/
     type:     annotation

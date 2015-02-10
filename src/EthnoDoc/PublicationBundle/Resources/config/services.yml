@@ -1,0 +1,4 @@
+services:
+#    ethno_doc_publication.example:
+#        class: EthnoDoc\PublicationBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

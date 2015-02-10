@@ -1,0 +1,3 @@
+ethno_doc_publication_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: EthnoDocPublicationBundle:Default:index }
