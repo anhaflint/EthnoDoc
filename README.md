@@ -4,6 +4,10 @@ EthnoDoc project source files
 * Source files for the EthnoDoc project, in parternship with the Graduate School of Engineering of the University of Nantes and the EthnoDoc/RADdO association
 
 * install :
+if you do not have composer installed on your machine :
+```
+    $ php -r "readfile('https://getcomposer.org/installer');" | php
+```
 
 ```
     $ git clone https://github.com/anhaflint/EthnoDoc.git
