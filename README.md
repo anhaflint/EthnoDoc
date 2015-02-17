@@ -6,11 +6,11 @@ EthnoDoc project source files
 project installation :
 ---------
 
-### if you do not have composer installed on your machine :
+* If you do not have composer installed on your machine :
 ```
     $ php -r "readfile('https://getcomposer.org/installer');" | php
 ```
-### then
+* then
 ```
     $ git clone https://github.com/anhaflint/EthnoDoc.git
     $ php composer.phar install
