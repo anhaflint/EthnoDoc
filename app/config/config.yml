@@ -71,3 +71,21 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+# Elastica Configuration
+fos_elastica:
+    clients:
+        default: { host: localhost, port: 9200 }
+    serializer:
+        callback_class: FOS\ElasticaBundle\Serializer\Callback
+        serializer: serializer
+    indexes:
+        ethnodoc:
+            client: default
+            types:
+                EditedMusicalNote:
+                    mappings: ~
+                    persistence:
+                        driver: orm
+                        model: EthnoDoc\PublicationBundle\Entity\EditedMusicalNote
+                        provider: ~
