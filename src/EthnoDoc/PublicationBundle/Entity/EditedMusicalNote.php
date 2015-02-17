@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * EditedMusicalNote
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="EthnoDoc\PublicationBundle\Entity\EditedMusicalNoteRepository")
+ * @ORM\Entity(repositoryClass="EthnoDoc\PublicationBundle\Repository\EditedMusicalNoteRepository")
  */
 class EditedMusicalNote extends MusicalNote
 {
