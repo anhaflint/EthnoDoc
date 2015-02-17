@@ -18,7 +18,7 @@ project installation :
     $ php app/console doctrine:schema:update --force
 ```
 
-Java installation :
+Java installation (Windows):
 ---------------------
 * Download the Java JDK:
 ```
