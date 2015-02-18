@@ -1,0 +1,27 @@
+[2015-02-18 18:17:17,409][INFO ][node                     ] [node-01] version[1.4.3], pid[14888], build[36a29a7/2015-02-11T14:23:15Z]
+[2015-02-18 18:17:17,430][INFO ][node                     ] [node-01] initializing ...
+[2015-02-18 18:17:17,434][INFO ][plugins                  ] [node-01] loaded [], sites []
+[2015-02-18 18:17:20,442][INFO ][node                     ] [node-01] initialized
+[2015-02-18 18:17:20,442][INFO ][node                     ] [node-01] starting ...
+[2015-02-18 18:17:20,622][INFO ][transport                ] [node-01] bound_address {inet[/0:0:0:0:0:0:0:0:9301]}, publish_address {inet[/192.168.1.36:9301]}
+[2015-02-18 18:17:20,766][INFO ][discovery                ] [node-01] test-1.4.3/_86pb3J5TW-4swfs7PNRvA
+[2015-02-18 18:17:24,538][INFO ][cluster.service          ] [node-01] new_master [node-01][_86pb3J5TW-4swfs7PNRvA][JohnPeter][inet[/192.168.1.36:9301]], reason: zen-disco-join (elected_as_master)
+[2015-02-18 18:17:24,607][INFO ][gateway                  ] [node-01] recovered [0] indices into cluster_state
+[2015-02-18 18:17:24,625][INFO ][http                     ] [node-01] bound_address {inet[/0:0:0:0:0:0:0:0:9201]}, publish_address {inet[/192.168.1.36:9201]}
+[2015-02-18 18:17:24,625][INFO ][node                     ] [node-01] started
+[2015-02-18 18:31:25,024][INFO ][node                     ] [node-01] stopping ...
+[2015-02-18 18:31:25,937][INFO ][node                     ] [node-01] stopped
+[2015-02-18 18:31:25,948][INFO ][node                     ] [node-01] closing ...
+[2015-02-18 18:31:26,248][INFO ][node                     ] [node-01] closed
+[2015-02-18 18:31:40,733][INFO ][node                     ] [node-01] version[1.4.3], pid[11916], build[36a29a7/2015-02-11T14:23:15Z]
+[2015-02-18 18:31:40,733][INFO ][node                     ] [node-01] initializing ...
+[2015-02-18 18:31:40,739][INFO ][plugins                  ] [node-01] loaded [], sites [head]
+[2015-02-18 18:31:44,201][INFO ][node                     ] [node-01] initialized
+[2015-02-18 18:31:44,202][INFO ][node                     ] [node-01] starting ...
+[2015-02-18 18:31:44,368][INFO ][transport                ] [node-01] bound_address {inet[/0:0:0:0:0:0:0:0:9300]}, publish_address {inet[/192.168.1.36:9300]}
+[2015-02-18 18:31:44,624][INFO ][discovery                ] [node-01] test-1.4.3/w-IKMdQHS4GEGrToGpE2Xg
+[2015-02-18 18:31:48,443][INFO ][cluster.service          ] [node-01] new_master [node-01][w-IKMdQHS4GEGrToGpE2Xg][JohnPeter][inet[/192.168.1.36:9300]], reason: zen-disco-join (elected_as_master)
+[2015-02-18 18:31:48,529][INFO ][gateway                  ] [node-01] recovered [0] indices into cluster_state
+[2015-02-18 18:31:48,538][INFO ][http                     ] [node-01] bound_address {inet[/0:0:0:0:0:0:0:0:9200]}, publish_address {inet[/192.168.1.36:9200]}
+[2015-02-18 18:31:48,539][INFO ][node                     ] [node-01] started
+[2015-02-18 18:32:06,646][INFO ][cluster.service          ] [node-01] added {[node-02][xhBpbXQ8SBmjq144-4H2SA][JohnPeter][inet[/192.168.1.36:9301]],}, reason: zen-disco-receive(join from node[[node-02][xhBpbXQ8SBmjq144-4H2SA][JohnPeter][inet[/192.168.1.36:9301]]])
