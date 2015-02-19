@@ -35,19 +35,23 @@ Java installation (Windows):
     %JAVA_HOME%\bin
 ```
 
-Elasticsearch installation :
-----------------------------
-
-* Downlad elasticsearch at
-```
-    http://www.elasticsearch.org/overview/elkdownloads/
-```
-* Unzip the zip file
-
 Run Elasticsearch :
 -------------------------
-* Go to your elasticsearch directory and then :
+* this step may require *curl*
+* Go into the elasticsearch directory
+* Start the first elasticsearch node :
 ```
-    $ elasticsearch\bin\elasticsearch.bat
+    $ elasticsearch-1.4.3_node1\bin\elasticsearch
 ```
-* Elasticsearch should now run on your machine
+* Start the second elasticsearch node :
+```
+    $ elasticsearch-1.4.3_node2\bin\elasticsearch
+```
+* Check that the server is running :
+```
+    http://localhost:9200/
+```
+* Check  the health of your cluster :
+```
+    http://localhost:9200/_plugin/head/
+```
