@@ -954,3 +954,15 @@ java.net.SocketException: Network is unreachable: no further information
 [2015-02-19 08:57:02,292][INFO ][node                     ] [node-01] stopped
 [2015-02-19 08:57:02,292][INFO ][node                     ] [node-01] closing ...
 [2015-02-19 08:57:03,746][INFO ][node                     ] [node-01] closed
+[2015-02-19 09:08:46,052][INFO ][node                     ] [node-01] version[1.4.3], pid[8560], build[36a29a7/2015-02-11T14:23:15Z]
+[2015-02-19 09:08:46,063][INFO ][node                     ] [node-01] initializing ...
+[2015-02-19 09:08:46,068][INFO ][plugins                  ] [node-01] loaded [], sites [head]
+[2015-02-19 09:08:49,978][INFO ][node                     ] [node-01] initialized
+[2015-02-19 09:08:49,980][INFO ][node                     ] [node-01] starting ...
+[2015-02-19 09:08:50,224][INFO ][transport                ] [node-01] bound_address {inet[/0:0:0:0:0:0:0:0:9300]}, publish_address {inet[/192.168.1.36:9300]}
+[2015-02-19 09:08:50,468][INFO ][discovery                ] [node-01] test-1.4.3/pZC5FajHS1uzpboK0W8IEw
+[2015-02-19 09:08:54,319][INFO ][cluster.service          ] [node-01] new_master [node-01][pZC5FajHS1uzpboK0W8IEw][JohnPeter][inet[/192.168.1.36:9300]], reason: zen-disco-join (elected_as_master)
+[2015-02-19 09:08:54,439][INFO ][http                     ] [node-01] bound_address {inet[/0:0:0:0:0:0:0:0:9200]}, publish_address {inet[/192.168.1.36:9200]}
+[2015-02-19 09:08:54,439][INFO ][node                     ] [node-01] started
+[2015-02-19 09:08:55,586][INFO ][gateway                  ] [node-01] recovered [1] indices into cluster_state
+[2015-02-19 09:09:33,176][INFO ][cluster.service          ] [node-01] added {[node-02][WBR_7BTmRsqY8D_EuH7tVA][JohnPeter][inet[/192.168.1.36:9301]],}, reason: zen-disco-receive(join from node[[node-02][WBR_7BTmRsqY8D_EuH7tVA][JohnPeter][inet[/192.168.1.36:9301]]])
