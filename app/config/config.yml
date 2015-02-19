@@ -89,3 +89,4 @@ fos_elastica:
                         driver: orm
                         model: EthnoDoc\PublicationBundle\Entity\EditedMusicalNote
                         provider: ~
+                        finder: ~
