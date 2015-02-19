@@ -5,12 +5,12 @@ namespace EthnoDoc\PublicationBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * spokenArchiveNote
+ * SpokenArchiveNote
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="EthnoDoc\PublicationBundle\Repository\spokenArchiveNoteRepository")
+ * @ORM\Entity(repositoryClass="EthnoDoc\PublicationBundle\Repository\SpokenArchiveNoteRepository")
  */
-class spokenArchiveNote extends Note
+class SpokenArchiveNote extends Note
 {
     /**
      * @var integer
