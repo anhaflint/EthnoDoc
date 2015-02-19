@@ -1,0 +1,67 @@
+@contentColor : #ffffff;
+
+.Shadow{
+    box-shadow: -1px 2px 10px 1px rgba(0,0,0,0.7);
+}
+
+.inShadow{
+    box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.7),
+    -1px 2px 20px rgba(255, 255, 255, 0.6) inset;
+}
+body {
+    background-image: url(../../img/footer_lodyas.png);
+    padding-top: 61px;
+    background-attachment: fixed;
+}
+#carousel{
+    padding: 0px;
+    img{
+        height: 570px;
+        width: auto;
+        text-align: center;
+        padding: 0px;
+    }
+}
+.navbar {
+    white-space: normal;
+    margin-bottom: 0px;
+    border-radius: 0px;
+    padding-top: 10px;
+    .Shadow;
+    li {
+        width: 40%;
+        font-size: 90%;
+        display: block;
+        a {
+            margin-top: 10px;
+            padding: 0px 0px 0px 10px;
+            border-left: solid 1px lightslategray;
+            line-height: 100%;
+        }
+    }
+    .navbar-brand, #login{
+        padding-top: 10px;
+    }
+    .navbar-right li a {
+        margin-top: 10%;
+        border: none;
+    }
+}
+#content {
+    background-color: @contentColor;
+    height: 100%;
+    .Shadow;
+    padding-top: 20px;
+}
+#resultNb {
+    padding-left: 40px;
+    padding-top: 10px;
+}
+
+#facetNav{
+    background-color: @contentColor;
+    height: 600px;
+    .inShadow;
+    position: fixed;
+//    padding-top: px;
+}
