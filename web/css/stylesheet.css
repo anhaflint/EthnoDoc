@@ -1,0 +1,62 @@
+.Shadow {
+  box-shadow: -1px 2px 10px 1px rgba(0, 0, 0, 0.7);
+}
+.inShadow {
+  box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.7), -1px 2px 20px rgba(255, 255, 255, 0.6) inset;
+}
+body {
+  background-image: url(../../img/footer_lodyas.png);
+  padding-top: 61px;
+  background-attachment: fixed;
+}
+#carousel {
+  padding: 0px;
+}
+#carousel img {
+  height: 570px;
+  width: auto;
+  text-align: center;
+  padding: 0px;
+}
+.navbar {
+  white-space: normal;
+  margin-bottom: 0px;
+  border-radius: 0px;
+  padding-top: 10px;
+  box-shadow: -1px 2px 10px 1px rgba(0, 0, 0, 0.7);
+}
+.navbar li {
+  width: 40%;
+  font-size: 90%;
+  display: block;
+}
+.navbar li a {
+  margin-top: 10px;
+  padding: 0px 0px 0px 10px;
+  border-left: solid 1px lightslategray;
+  line-height: 100%;
+}
+.navbar .navbar-brand,
+.navbar #login {
+  padding-top: 10px;
+}
+.navbar .navbar-right li a {
+  margin-top: 10%;
+  border: none;
+}
+#content {
+  background-color: #ffffff;
+  height: 100%;
+  box-shadow: -1px 2px 10px 1px rgba(0, 0, 0, 0.7);
+  padding-top: 20px;
+}
+#resultNb {
+  padding-left: 40px;
+  padding-top: 10px;
+}
+#facetNav {
+  background-color: #ffffff;
+  height: 600px;
+  box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.7), -1px 2px 20px rgba(255, 255, 255, 0.6) inset;
+  position: fixed;
+}
