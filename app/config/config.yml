@@ -90,3 +90,41 @@ fos_elastica:
                         model: EthnoDoc\PublicationBundle\Entity\EditedMusicalNote
                         provider: ~
                         finder: ~
+                        repository: EthnoDoc\PublicationBundle\ElasticaRepository\ElasticaEditedMusicalNoteRepository
+                        listener: ~
+                NonEditedMusicalNote:
+                    mappings: ~
+                    persistence:
+                        driver: orm
+                        model: EthnoDoc\PublicationBundle\Entity\NonEditedMusicalNote
+                        provider: ~
+                        finder: ~
+                        repository: EthnoDoc\PublicationBundle\ElasticaRepository\ElasticaNonEditedMusicalNoteRepository
+                        listener: ~
+                HandWrittenNote:
+                    mappings: ~
+                    persistence:
+                        driver: orm
+                        model: EthnoDoc\PublicationBundle\Entity\HandWrittenNote
+                        provider: ~
+                        finder: ~
+                        repository: EthnoDoc\PublicationBundle\ElasticaRepository\ElasticaHandWrittenNoteRepository
+                        listener: ~
+                IcoVideoGraphyNote:
+                    mappings: ~
+                    persistence:
+                        driver: orm
+                        model: EthnoDoc\PublicationBundle\Entity\IcoVideoGraphyNote
+                        provider: ~
+                        finder: ~
+                        repository: EthnoDoc\PublicationBundle\ElasticaRepository\ElasticaIcoVideoGraphyNoteRepository
+                        listener: ~
+                SpokenArchiveNote:
+                    mappings: ~
+                    persistence:
+                        driver: orm
+                        model: EthnoDoc\PublicationBundle\Entity\SpokenArchiveNote
+                        provider: ~
+                        finder: ~
+                        repository: EthnoDoc\PublicationBundle\ElasticaRepository\ElasticaSpokenArchiveNoteRepository
+                        listener: ~
