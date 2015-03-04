@@ -3,4 +3,54 @@
 {% block title %}EthnoDocPublicationBundle:Search:search{% endblock %}
 
 {% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            {% block searchbar %}
+                <div class="col-md-3 col-xs-4 col-lg-2 col-lg-offset-1" id="facetNav">
+                    <h3>Affiner la recherche</h3>
+                    <h5>Disponible en ligne</h5>
+                    <h5>Consultable dans les centres RADdO</h5>
+                    <ul>
+                        <li>
+                            <ul>Facette 1
+                                <li>descripteur 1</li>
+                                <li>descripteur 2</li>
+                                <li>descripteur 3</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <ul>Facette 2
+                                <li>descripteur 1</li>
+                                <li>descripteur 2</li>
+                                <li>descripteur 3</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            {%  endblock %}
+
+            {% block searchResult %}
+                <div id="content" class="col-md-9 col-xs-8 col-lg-6 col-xs-offset-4 col-lg-offset-3 col-md-offset-3">
+                    <!--search bar-->
+                    <div class="row">
+                        <div id="resultNb" class="col-xs-4">
+                            185,025 résultats trouvés
+                        </div>
+                        <form id="search" class="col-xs-6 pull-right form-inline">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Rechercher">
+                            </div>
+                            <button type="submit" class="btn btn-default">Rechercher</button>
+                        </form>
+                    </div>
+                    <hr />
+                    <!--thumbnails-->
+                    <div class="col-md-6" >
+
+                    </div>
+                </div>
+            {% endblock %}
+        </div>
+    </div>
+
 {% endblock %}

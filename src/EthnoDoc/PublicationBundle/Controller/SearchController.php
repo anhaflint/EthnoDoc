@@ -2,45 +2,46 @@
 
 namespace EthnoDoc\PublicationBundle\Controller;
 
+use EthnoDoc\PublicationBundle\Entity\EditedMusicalNote;
+use EthnoDoc\PublicationBundle\Entity\IcoVideoGraphyNote;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class SearchController extends Controller
 {
-    public function searchAction()
+    public function searchAction(Request $request)
     {
+        //Test Type query
+    /*    $editedNoteType = $this->get('fos_elastica.index.ethnodoc.icovideographynote');
+        $result = $editedNoteType->search("coucou");
 
-        $editedNoteType = $this->get('fos_elastica.index.ethnodoc.editedmusicalnote');
-        $result = $editedNoteType->search("country8");
+        //Test finder
+        $finder = $this->get('fos_elastica.finder.ethnodoc.icovideographynote');
+        $notes = $finder->findHybrid('coucou', 20);
+
+        //Test custom repository
+        /*$repoManager = $this->get('fos_elastica.manager');
+        $repository = $repoManager->getRepository('EthnoDoc\PublicationBundle\Entity\IcoVideoGraphyNote');
+            // Retourne un tableau d'objets de type hybrid.
+            // Acces à l'entité doctrine par methode getTransformed.
+        $editedNote = $repository->findTest('coucou');*/
+
+       // var_dump($editedNote);
+     /*   var_dump($notes);
+        var_dump($notes); */
 
 
-        $query_part = new \Elastica\Query\Bool();
-        $query_part->addShould(
-            new \Elastica\Query\Term(
-                array('title' => array('value' => 'title1', 'boost' => 3))
-            )
-        );
 
-        $query_part->addShould(
-            new \Elastica\Query\Term(
-                array('country' => array('value' => 'country6'))
-            )
-        );
+        if($request->isMethod('get')){
+            $artist = $request->query->get('artist');
+            echo $artist;
+            $genre = $request->query->get('genre');
+            if($genre !== null) {
+                echo $genre;
+            }
+        }
 
-        $filters = new \Elastica\Filter\Bool();
-        $filters->addShould(
-            new \Elastica\Filter\Term(
-                array('keyWords' => 'keyWords1')
-            )
-        );
 
-        $query = new \Elastica\Query\Filtered($query_part, $filters);
-
-        $result = $editedNoteType->search($query);
-
-        $finder = $this->get('fos_elastica.finder.ethnodoc.editedmusicalnote');
-        $notes = $finder->findHybrid('country8', 20);
-        dump($notes);die;
-        dump($result);die;
         return $this->render('EthnoDocPublicationBundle:Search:search.html.twig', array(
                 // ...
             ));    }
