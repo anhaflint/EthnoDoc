@@ -55,3 +55,10 @@ Run Elasticsearch :
 ```
     http://localhost:9200/_plugin/head/
 ```
+
+Reset the indexes :
+-----------------------
+* Run the following command line :
+```
+    $php app/console fos:elastica:populate
+```
