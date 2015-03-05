@@ -81,6 +81,7 @@ fos_elastica:
         serializer: serializer
     indexes:
         ethnodoc:
+            finder: ~
             client: default
             types:
                 EditedMusicalNote:
