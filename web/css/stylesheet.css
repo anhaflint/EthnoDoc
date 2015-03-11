@@ -5,7 +5,7 @@
   box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.7), -1px 2px 20px rgba(255, 255, 255, 0.6) inset;
 }
 body {
-  background-image: url(../../img/footer_lodyas.png);
+  background-image: url(../img/footer_lodyas.png);
   padding-top: 61px;
   background-attachment: fixed;
 }
@@ -56,7 +56,10 @@ body {
 }
 #facetNav {
   background-color: #ffffff;
-  height: 600px;
   box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.7), -1px 2px 20px rgba(255, 255, 255, 0.6) inset;
   position: fixed;
+  overflow: auto;
+}
+.breadcrumb i {
+  margin-left: 3px;
 }

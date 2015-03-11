@@ -1,3 +1,7 @@
 ethnodoc_search:
     path:     /
     defaults: { _controller: EthnoDocPublicationBundle:Search:search }
+
+print_note:
+    path:     /note/{type}/{id}
+    defaults: { _controller: EthnoDocPublicationBundle:Search:printNote }

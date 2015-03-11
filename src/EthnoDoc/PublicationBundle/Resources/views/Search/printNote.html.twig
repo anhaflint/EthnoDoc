@@ -1,0 +1,59 @@
+{% extends "EthnoDocPublicationBundle:Search:search.html.twig" %}
+
+{% block title %}EthnoDocPublicationBundle:Search:search{% endblock %}
+
+{% block searchResult %}
+    <h2>{{ result.title }}</h2>
+    <h3>{{ result.country }}</h3>
+    <h3>{{ result.key_words }}</h3>
+    <hr/>
+    <div>
+        <ul>
+        {% if type == 'EditedMusicalNote' or type == 'NonEditedMusicalNote' or type == 'HandWrittenNote' %}
+            <li><strong>Incipit littéraire du couplet (FR) : </strong>{{ result.lead_in_couplet_f_r }}</li>
+            <li><strong>Incipit littéraire du refrain (FR) : </strong>{{ result.lead_in_refrain_f_r }}</li>
+            <li><strong>Incipit littéraire du couplet (VO) : </strong>{{ result.lead_in_couplet_v_o }}</li>
+            <li><strong>Incipit littéraire du refrain (VO) : </strong>{{ result.lead_in_refrain_v_o }}</li>
+            <li><strong>Auteur ancient : </strong>{{ result.author_ancient }}</li>
+            <li><strong>Auteur folklorique : </strong>{{ result.traditional_author }}</li>
+            <li><strong>Culture : </strong>{{ result.culture }}</li>
+            <li><strong>Langue : </strong>{{ result.language }}</li>
+            <li><strong>Usage ou circonstance : </strong>{{ result.uses_circumstance }}</li>
+            <li><strong>Fonction dans l'usage ou la circonstance : </strong>{{ result.function_uses }}</li>
+            <li><strong>Thèmes Coirault : </strong>{{ result.coirault_theme }}</li>
+            <li><strong>Côte Coirault</strong>{{ result.coirault_number }}</li>
+            <li><strong>Côte Laforte : </strong>{{ result.laforte_number }}</li>
+            <li><strong>Précotation EthnoDoc : </strong>{{ result.precotation_ethnodoc }}</li>
+        {% endif %}
+        {% if type == 'EditedMusicalNote' %}
+            <li><strong>Artiste : </strong>{{ result.artist }}</li>
+            <li><strong>Instrument : </strong>{{ result.instrument }}</li>
+            <li><strong>Titre du phonogramme : </strong>{{ result.phonogram_title }}</li>
+            <li><strong>Collection : </strong>{{ result.collection }}</li>
+        {% endif %}
+        {% if type == 'NonEditedMusicalNote' %}
+            <li><strong>Témoin : </strong>{{ result.witness }}</li>
+            <li><strong>Expression : </strong>{{ result.expression }}</li>
+            <li><strong>Enquête : </strong>{{ result.survey }}</li>
+            <li><strong>Collecteur : </strong>{{ result.collector }}</li>
+            <li><strong>Collection : </strong>{{ result.collection }}</li>
+        {% endif %}
+        {% if type == 'IcoVideoGraphyNote' %}
+            <li><strong>Décennie : </strong>{{ result.decade }}</li>
+            <li><strong>Editeur : </strong>{{ result.publisher }}</li>
+            <li><strong>Côte Editeur : </strong>{{ result.publisher_number }}</li>
+            <li><strong>Enquête : </strong>{{ result.survey }}</li>
+            <li><strong>Fonds : </strong>{{ result.stock }}</li>
+            <li><strong>Collection : </strong>{{ result.collection }}</li>
+        {% endif %}
+        {% if type == 'SpokenArchiveNote' %}
+            <li><strong>Décennie : </strong>{{ result.decade }}</li>
+            <li><strong>Témoin : </strong>{{ result.witness }}</li>
+            <li><strong>Collecteur : </strong>{{ result.collector }}</li>
+            <li><strong>Enquête : </strong>{{ result.survey }}</li>
+            <li><strong>Fonds : </strong>{{ result.stock }}</li>
+            <li><strong>Collection : </strong>{{ result.collection }}</li>
+        {% endif %}
+        </ul>
+    </div>
+{% endblock %}
