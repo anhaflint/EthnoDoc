@@ -16,12 +16,16 @@ class SearchController extends Controller
         $query = \Elastica\Query::create('');
             $country_facet = new Terms('country');
             $country_facet->setField('country');
+            $country_facet->setFilter(new \Elastica\Filter\Term(
+                array('artist' => 'artist2')
+            ));
             $query->addFacet($country_facet);
 
             $articles = $this->get('fos_elastica.index.ethnodoc')->search($query);
             $facets = $articles->getFacets();
             $countries = $facets['country']['terms'];
 
+        var_dump($countries);die;
         $query = \Elastica\Query::create('');
             $artist_facet = new Terms('artist');
             $artist_facet->setField('artist');
