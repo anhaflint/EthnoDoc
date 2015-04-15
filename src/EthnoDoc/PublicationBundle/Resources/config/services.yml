@@ -1,4 +1,4 @@
 services:
-#    ethno_doc_publication.example:
-#        class: EthnoDoc\PublicationBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    ethno_doc_publication.faceter:
+        class: EthnoDoc\PublicationBundle\Services\Faceter\Faceter
+        arguments: [@fos_elastica.index.ethnodoc]
