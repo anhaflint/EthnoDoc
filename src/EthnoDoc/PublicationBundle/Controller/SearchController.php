@@ -10,110 +10,47 @@ use Elastica\Facet\Terms;
 
 class SearchController extends Controller
 {
-    public function searchAction(Request $request)
+    public function searchAction($id, $type, Request $request)
     {
-        //Test facette
-        $query = \Elastica\Query::create('');
-            $country_facet = new Terms('country');
-            $country_facet->setField('country');
-            $country_facet->setFilter(new \Elastica\Filter\Term(
-                array('artist' => 'artist2')
-            ));
-            $query->addFacet($country_facet);
-
-            $articles = $this->get('fos_elastica.index.ethnodoc')->search($query);
-            $facets = $articles->getFacets();
-            $countries = $facets['country']['terms'];
-
-        var_dump($countries);die;
-        $query = \Elastica\Query::create('');
-            $artist_facet = new Terms('artist');
-            $artist_facet->setField('artist');
-            $query->addFacet($artist_facet);
-
-            $articles = $this->get('fos_elastica.index.ethnodoc')->search($query);
-            $facets = $articles->getFacets();
-            $artists = $facets['artist']['terms'];
-
+        $faceter = $this->container->get('ethno_doc_publication.faceter');
+        $index = $this->get('fos_elastica.index.ethnodoc');
         $results = null;
+        $notice = null;
+
         if($request->isMethod('get')){
-            $index = $this->get('fos_elastica.index.ethnodoc');
+            $selected = $request->query->all();
 
-            $artist = $request->query->get('artist');
-            $genre = $request->query->get('genre');
-            $country = $request->query->get('country');
+            //Global Query
+            $query = new \Elastica\Query();
+            //Terms Filter
+            $filter = $faceter->getFilter($selected);
+            //Facet Creation
+            $query->addFacet($faceter->getFacet('country', $filter));
+            $query->addFacet($faceter->getFacet('artist', $filter));
+            $query->addFacet($faceter->getFacet('instrument', $filter));
+            $query->addFacet($faceter->getFacet('culture', $filter));
 
-            if(null !== $country) {
-                $query_part = new \Elastica\Query\Bool();
-                $query_part->addShould(
-                    new \Elastica\Query\Term(array(
-                        'country' => array('value' => $country),
-                    ))
-                );
+            $search = $index->search($query);
+            $facets = $search->getFacets();
 
-                $results = $index->search($query_part);
-            }
+            //Build Query
+            $results = $faceter->getFacetSelection($selected);
+        }
 
-            if(null !== $artist) {
-                $query_part = new \Elastica\Query\Bool();
-                $query_part->addShould(
-                    new \Elastica\Query\Term(array(
-                        'artist' => array('value' => $artist),
-                    ))
-                );
+        if($id !== null && $type !== null) {
+            $notice = $faceter->getFacetSelection(array('id' => $id, '_type' => $type))->getResults();
 
-                $results = $index->search($query_part);
-            }
+            return $this->render('EthnoDocPublicationBundle:Search:printNote.html.twig', array(
+                'results' => $results,
+                'facets' => $facets,
+                'notice' => $notice[0]->getData(),
+                'type' => $type
+            ));
         }
 
         return $this->render('EthnoDocPublicationBundle:Search:search.html.twig', array(
-            'countries' => $countries,
-            'artists' => $artists,
             'results' => $results,
-        ));
-    }
-
-    public function printNoteAction($id, $type, Request $request) {
-        //Facets
-        $query = \Elastica\Query::create('');
-            $country_facet = new Terms('country');
-            $country_facet->setField('country');
-            $query->addFacet($country_facet);
-
-            $articles = $this->get('fos_elastica.index.ethnodoc')->search($query);
-            $facets = $articles->getFacets();
-            $countries = $facets['country']['terms'];
-
-        $query = \Elastica\Query::create('');
-            $artist_facet = new Terms('artist');
-            $artist_facet->setField('artist');
-            $query->addFacet($artist_facet);
-
-            $articles = $this->get('fos_elastica.index.ethnodoc')->search($query);
-            $facets = $articles->getFacets();
-            $artists = $facets['artist']['terms'];
-
-        //Result
-        $index = $this->get('fos_elastica.index.ethnodoc');
-            $query = new \Elastica\Query\Bool();
-            $query->addMust(
-                new \Elastica\Query\Term(array(
-                    'id' => array('value' => $id),
-                ))
-            );
-            $query->addMust(
-                new \Elastica\Query\Term(array(
-                    '_type' => array('value' => $type),
-                ))
-            );
-
-        $result = $index->search($query)->getResults();
-
-        return $this->render('EthnoDocPublicationBundle:Search:printNote.html.twig', array(
-            'countries' => $countries,
-            'artists' => $artists,
-            'result' => $result[0]->getData(),
-            'type' => $type
+            'facets' => $facets,
         ));
     }
 }
