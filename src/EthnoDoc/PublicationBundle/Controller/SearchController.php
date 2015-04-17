@@ -67,6 +67,13 @@ class SearchController extends Controller
                 $names[$key]['title'] =  $result->getData()['title'];
                 $names[$key]['id'] = $result->getData()['id'];
                 $names[$key]['type'] = $result->getType();
+                $hit = null;
+                foreach($result->getData() as  $data) {
+                    if(stripos($data, $searchPhrase)!== false) {
+                        $hit = $data;
+                    }
+                }
+                $names[$key]['hit'] = $hit;
             }
 
             return new Response(json_encode($names));
