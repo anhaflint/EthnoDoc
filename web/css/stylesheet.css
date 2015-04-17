@@ -10,7 +10,7 @@ body {
   background-attachment: fixed;
 }
 #carousel {
-  padding: 0px;
+  padding: 1px;
 }
 #carousel img {
   height: 570px;
