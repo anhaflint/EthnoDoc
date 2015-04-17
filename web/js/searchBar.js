@@ -20,7 +20,11 @@ function search() {
                 'Il n\'y a aucun résultat pour cette recherche',
                 '</div>'
             ].join('\n'),
-            suggestion: Handlebars.compile('<p><i class="glyphicon glyphicon-chevron-right"></i>&nbsp;<a href="' + searchpath + '/{{ type }}/{{ id }}">{{ value }}</a></p>')
+            header: [
+                '<div class="suggestion-header">',
+                'Résultats suggérés : ',
+                '</div>'].join('\n'),
+            suggestion: Handlebars.compile('<p><i class="glyphicon glyphicon-chevron-right"></i>&nbsp;<a href="' + searchpath + '/{{ type }}/{{ id }}">{{ value }}</a> - {{ hit }} </p>')
         }
     });
 }
@@ -31,7 +35,7 @@ var strMatch = function(strs, cb) {
     var matches = [];
     $.each(strs, function(i, str) {
         console.log(str);
-        matches.push({ value: str.title, id: str.id, type: str.type });
+        matches.push({ value: str.title, id: str.id, type: str.type, hit: str.hit });
     });
     console.log(matches);
     return cb(matches);
