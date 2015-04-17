@@ -7,6 +7,7 @@ use EthnoDoc\PublicationBundle\Entity\IcoVideoGraphyNote;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Elastica\Facet\Terms;
+use Symfony\Component\HttpFoundation\Response;
 
 class SearchController extends Controller
 {
@@ -53,4 +54,24 @@ class SearchController extends Controller
             'facets' => $facets,
         ));
     }
+
+    public function autocompleteAction($searchPhrase)
+    {
+        $index = $this->container->get('fos_elastica.index.ethnodoc');
+        if(null !== $searchPhrase) {
+            $finder = $this->container->get('fos_elastica.finder.ethnodoc');
+            $results = $index->search('*'.$searchPhrase.'*', 5)->getResults();
+            $names = [];
+
+            foreach($results as $key => $result) {
+                $names[$key]['title'] =  $result->getData()['title'];
+                $names[$key]['id'] = $result->getData()['id'];
+                $names[$key]['type'] = $result->getType();
+            }
+
+            return new Response(json_encode($names));
+        }
+        return null;
+    }
+
 }
