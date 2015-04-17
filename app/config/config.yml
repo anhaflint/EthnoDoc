@@ -83,6 +83,18 @@ fos_elastica:
         ethnodoc:
             finder: ~
             client: default
+            settings:
+                index:
+                    analysis:
+                        analyzer:
+                            custom_french_analyzer:
+                                type: custom
+                                tokenizer: letter
+                                filter: ["asciifolding", "lowercase", "french_stem", "stop_fr"]
+                        filter:
+                            stop_fr:
+                                type: "stop"
+                                stopwords: ["l", "m", "t", "qu", "n", "s", "j", "d"]
             types:
                 EditedMusicalNote:
                     mappings: ~
