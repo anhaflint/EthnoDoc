@@ -5,12 +5,13 @@
 {% block body %}
     <div class="container-fluid">
         <div class="row">
+            {% set queryParams = app.request.query.all %}
             {% block searchbar %}
                 <div class="col-md-3 col-xs-4 col-lg-2 col-lg-offset-1" id="facetNav">
                     <h3>Affiner la recherche</h3>
                     <h5>Disponible en ligne</h5>
                     <h5>Consultable dans les centres RADdO</h5>
-                    <ul>
+                    <ul id="descriptors">
                         <li>Genre
                             <ul>
                                 <li>
@@ -27,30 +28,20 @@
                                 </li>
                             </ul>
                         </li>
-                        <li>Pays
-                            <ul>
-                                {% for country in countries %}
+                        {% for facetName, facet in facets %}
+                            <li>{{ facetName }}
+                                <ul>
+                                {% for searchTerm in facet.terms %}
                                     <li>
-                                        <a id="{{ country.term }}" href="{{ path('ethnodoc_search', {'country' : country.term}) }}">
-                                           {{ country.term }} ({{ country.count }})
+                                        {% set queryString =  app.request.query.all|merge({(facetName): searchTerm.term})|url_encode %}
+                                        <a id="{{ searchTerm.term }}" href="{{ path('ethnodoc_search') }}?{{ queryString }}">
+                                            {{ searchTerm.term }} ({{ searchTerm.count }})
                                         </a>
                                     </li>
                                 {% endfor %}
-                            </ul>
-                        </li>
-                        <li>Artiste
-                            <ul>
-                                {% if artists is not null %}
-                                    {% for artist in artists %}
-                                        <li>
-                                            <a id="{{ artist.term }}" href="{{ path('ethnodoc_search', {'artist' : artist.term}) }}">
-                                                {{ artist.term }} ({{ artist.count }})
-                                            </a>
-                                        </li>
-                                    {% endfor %}
-                                {% endif %}
-                            </ul>
-                        </li>
+                                </ul>
+                            </li>
+                        {% endfor %}
                     </ul>
                 </div>
             {%  endblock %}
@@ -60,11 +51,23 @@
                 <!--search bar-->
                 <div class="row">
                     <div id="resultNb" class="col-xs-4">
-                        185,025 résultats trouvés
+                        {% if results is not null %}
+                            {{ results.totalHits }}
+                        {% else %}
+                            {{ facets.country.total }}
+                        {% endif %}
+                            résultats trouvés
+                    </div>
+                    <div>
+
+                        {#% if selected.country is defined %#}
+                            {#{ selected.country }#}
+                        {#% endif %#}
+
                     </div>
                     <form id="search" class="col-xs-6 pull-right form-inline">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Rechercher">
+                        <div id="searchBar" class="form-group">
+                            <input type="text" class="typeahead form-control" placeholder="Rechercher">
                         </div>
                         <button type="submit" class="btn btn-default">Rechercher</button>
                     </form>
@@ -72,6 +75,14 @@
                 {% block ariane %}
                     <div id="ariane">
                         <ol class="breadcrumb">
+                            {% for key, q_selection in queryParams %}
+                                <li>
+                                    <a href="{{ app.request.uri|replace( { (key) : '', (q_selection) : ''}) }}">
+                                        {{ key }} : {{ q_selection }}
+                                        <i class="glyphicon glyphicon-remove"></i>
+                                    </a>
+                                </li>
+                            {% endfor %}
                         </ol>
                     </div>
                 {% endblock %}
@@ -84,7 +95,7 @@
                                 {% set dataResults = results.results %}
                                 {% for result in dataResults %}
                                 <div class="col-xs-4 col-md-4 col-lg-4">
-                                    <a href="{{ path('print_note', {'id' : result.data.id , 'type' : result.type }) }}" class="thumbnail">
+                                    <a href="{{ path('ethnodoc_search', {'id' : result.data.id , 'type' : result.type }) }}?{{ queryParams|url_encode }}" class="thumbnail">
                                         <img src="{{ asset('img/paperboy.jpg') }}" alt="{{ result.data.title }}"/>
                                         <small>{{ result.data.title }}</small>
                                     </a>
@@ -104,5 +115,10 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script type="text/javascript" src="{{ asset('js/ariane.js') }}"></script>
+    <script>
+        var homepath = "{{ path('ethnodoc_autocomplete') }}";
+        var searchpath = "{{ path('ethnodoc_search') }}";
+    </script>
+    <!--<script type="text/javascript" src="{{ asset('js/ariane.js') }}"></script>-->
+    <script type="text/javascript" src="{{ asset('js/searchBar.js') }}"></script>
 {% endblock %}
