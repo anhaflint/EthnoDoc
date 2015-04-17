@@ -6,6 +6,7 @@
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css" />
             <link rel="stylesheet" href="{{ asset('css/stylesheet.css') }}" type="text/css" />
+            <link rel="stylesheet" href="{{ asset('css/suggestionsBox.css') }}" type="text/css" />
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
@@ -46,8 +47,12 @@
         <!-- /navbar -->
         {% block body %}{% endblock %}
         {% block javascripts %}
-            <script src="{{ asset('js/jquery.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
             <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/bloodhound.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/typeahead.bundle.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/typeahead.jquery.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/handlebars-v3.0.1.js') }}"></script>
         {% endblock %}
     </body>
 </html>
