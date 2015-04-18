@@ -17,30 +17,33 @@ class SearchController extends Controller
         $index = $this->get('fos_elastica.index.ethnodoc');
         $results = null;
         $notice = null;
+        $data = array();
+        $form = $this->createFormBuilder($data)
+            ->add('search', 'text')
+            ->add('Rechercher', 'submit')
+            ->getForm();
 
-        if($request->isMethod('get')){
-            $selected = $request->query->all();
+        $selected = $request->query->all();
 
-            //Global Query
-            $query = new \Elastica\Query();
-            //Terms Filter
-            $filter = $faceter->getFilter($selected);
-            //Facet Creation
-            $query->addFacet($faceter->getFacet('country', $filter));
-            $query->addFacet($faceter->getFacet('artist', $filter));
-            $query->addFacet($faceter->getFacet('instrument', $filter));
-            $query->addFacet($faceter->getFacet('culture', $filter));
+        //Global Query
+        $query = new \Elastica\Query();
+        //Terms Filter
+        $filter = $faceter->getFilter($selected);
+        //Facet Creation
+        $query->addFacet($faceter->getFacet('country', $filter));
+        $query->addFacet($faceter->getFacet('artist', $filter));
+        $query->addFacet($faceter->getFacet('instrument', $filter));
+        $query->addFacet($faceter->getFacet('culture', $filter));
 
-            $search = $index->search($query);
-            $facets = $search->getFacets();
+        $search = $index->search($query);
+        $facets = $search->getFacets();
 
-            //Build Query
-            $results = $faceter->getFacetSelection($selected);
-        }
+        //Build Query
+        $results = $faceter->getFacetSelection($selected);
+
 
         if($id !== null && $type !== null) {
             $notice = $faceter->getFacetSelection(array('id' => $id, '_type' => $type))->getResults();
-
             return $this->render('EthnoDocPublicationBundle:Search:printNote.html.twig', array(
                 'results' => $results,
                 'facets' => $facets,
@@ -49,15 +52,11 @@ class SearchController extends Controller
             ));
         }
 
-        $data = array();
-        $form = $this->createFormBuilder($data)
-            ->add('search', 'text')
-            ->add('Rechercher', 'submit')
-            ->getForm();
-
         if($request->getMethod() === 'POST') {
             $form->handleRequest($request);
-            $data = $form->getData();
+            $data = $form->getData()['search'];
+            $finder = $this->container->get('fos_elastica.finder.ethnodoc');
+            $results = $index->search('*'.$data.'*', 20)->getResults();
         }
 
         return $this->render('EthnoDocPublicationBundle:Search:search.html.twig', array(

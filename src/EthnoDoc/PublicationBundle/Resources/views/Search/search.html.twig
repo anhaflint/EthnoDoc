@@ -51,7 +51,7 @@
                 <!--search bar-->
                 <div class="row">
                     <div id="resultNb" class="col-xs-4">
-                        {% if results is not null %}
+                        {% if results is not null and results.totalHits is defined %}
                             {{ results.totalHits }}
                         {% else %}
                             {{ facets.country.total }}
@@ -89,7 +89,11 @@
                     <div class="row">
                         {% block searchResult %}
                             {% if results is not null %}
-                                {% set dataResults = results.results %}
+                                {% if results.results is defined %}
+                                    {% set dataResults = results.results %}
+                                {% else %}
+                                    {% set dataResults = results %}
+                                {% endif %}
                                 {% for result in dataResults %}
                                 <div class="col-xs-4 col-md-4 col-lg-4">
                                     <a href="{{ path('ethnodoc_search', {'id' : result.data.id , 'type' : result.type }) }}?{{ queryParams|url_encode }}" class="thumbnail">
