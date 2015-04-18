@@ -58,19 +58,16 @@
                         {% endif %}
                             résultats trouvés
                     </div>
-                    <div>
-
-                        {#% if selected.country is defined %#}
-                            {#{ selected.country }#}
-                        {#% endif %#}
-
-                    </div>
-                    <form id="search" class="col-xs-8 pull-right form-inline">
+                    <!-- Search Form -->
+                    {{ form_start(form, {'attr': {'class': 'col-xs-8 pull-right form-inline'} }) }}
+                        {{ form_errors(form) }}
                         <div id="searchBar" class="col-xs-8 form-group">
-                            <input type="text" class="typeahead form-control" placeholder="Rechercher">
+                            {{ form_widget(form.search, {'attr' : {'class' : 'typeahead form-control', 'placeholder' : 'Rechercher'} }) }}
                         </div>
-                        <button type="submit" class="btn btn-default">Rechercher</button>
-                    </form>
+                        {{ form_widget(form.Rechercher, {'attr' : {'class' : 'btn btn-default'} }) }}
+                        {{ form_rest(form) }}
+                    {{ form_end(form) }}
+                    <!-- ./search form -->
                 </div>
                 {% block ariane %}
                     <div id="ariane">
