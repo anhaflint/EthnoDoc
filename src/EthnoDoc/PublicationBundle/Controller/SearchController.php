@@ -49,9 +49,21 @@ class SearchController extends Controller
             ));
         }
 
+        $data = array();
+        $form = $this->createFormBuilder($data)
+            ->add('search', 'text')
+            ->add('Rechercher', 'submit')
+            ->getForm();
+
+        if($request->getMethod() === 'POST') {
+            $form->handleRequest($request);
+            $data = $form->getData();
+        }
+
         return $this->render('EthnoDocPublicationBundle:Search:search.html.twig', array(
             'results' => $results,
             'facets' => $facets,
+            'form' => $form->createView()
         ));
     }
 
