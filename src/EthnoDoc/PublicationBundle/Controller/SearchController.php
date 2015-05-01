@@ -48,7 +48,8 @@ class SearchController extends Controller
                 'results' => $results,
                 'facets' => $facets,
                 'notice' => $notice[0]->getData(),
-                'type' => $type
+                'type' => $type,
+                'form' => $form->createView()
             ));
         }
 
