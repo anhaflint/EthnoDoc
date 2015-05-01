@@ -43,7 +43,7 @@ class Faceter {
         $facet = new \Elastica\Facet\Terms($facetName);
         $facet->setField($facetName)
             ->setAllTerms(false)
-            ->setSize(20);
+            ->setSize(5);
         $facet->setFilter($filter);
 
         return $facet;
