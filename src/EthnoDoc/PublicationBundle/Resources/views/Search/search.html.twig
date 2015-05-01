@@ -12,6 +12,7 @@
                     <h5>Disponible en ligne</h5>
                     <h5>Consultable dans les centres RADdO</h5>
                     <ul id="descriptors">
+                        <!--
                         <li>Genre
                             <ul>
                                 <li>
@@ -28,12 +29,15 @@
                                 </li>
                             </ul>
                         </li>
+                        -->
                         {% for facetName, facet in facets %}
-                            <li>{{ facetName }}
-                                <ul>
+                            <li class="list-unstyled">
+                                <span id="{{ facetName }}"><i class="glyphicon glyphicon-plus"></i>&nbsp;{{ facetName }}</span>
+                                <ul class="{{ facetName }}descriptors desc" >
                                 {% for searchTerm in facet.terms %}
-                                    <li>
+                                    <li class="list-unstyled">
                                         {% set queryString =  app.request.query.all|merge({(facetName): searchTerm.term})|url_encode %}
+                                        <i class="glyphicon glyphicon-play"></i>
                                         <a id="{{ searchTerm.term }}" href="{{ path('ethnodoc_search') }}?{{ queryString }}">
                                             {{ searchTerm.term }} ({{ searchTerm.count }})
                                         </a>
@@ -52,13 +56,19 @@
                 <div class="row">
                     <div id="resultNb" class="col-xs-4">
                         {% if results is not null and results.totalHits is defined %}
-                            {{ results.totalHits }}
+                            {% set nbResults = results.totalHits %}
                         {% else %}
-                            {{ facets.country.total }}
+                            {% set nbResults = facets.country.total %}
                         {% endif %}
+                        {{ nbResults }}
+                        {% if nbResults == 1 %}
+                            résultat trouvé
+                        {% else %}
                             résultats trouvés
+                        {% endif %}
                     </div>
                     <!-- Search Form -->
+                    <div>
                     {{ form_start(form, {'attr': {'class': 'col-xs-8 pull-right form-inline'} }) }}
                         {{ form_errors(form) }}
                         <div id="searchBar" class="col-xs-8 form-group">
@@ -67,10 +77,12 @@
                         {{ form_widget(form.Rechercher, {'attr' : {'class' : 'btn btn-default'} }) }}
                         {{ form_rest(form) }}
                     {{ form_end(form) }}
+                    </div>
                     <!-- ./search form -->
                 </div>
                 {% block ariane %}
                     <div id="ariane">
+                        {% if queryParams is not empty %}
                         <ol class="breadcrumb">
                             {% for key, q_selection in queryParams %}
                                 <li>
@@ -81,6 +93,7 @@
                                 </li>
                             {% endfor %}
                         </ol>
+                        {% endif %}
                     </div>
                 {% endblock %}
                 <hr />
@@ -121,4 +134,5 @@
         var searchpath = "{{ path('ethnodoc_search') }}";
     </script>
     <script type="text/javascript" src="{{ asset('js/searchBar.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/facet.js') }}"></script>
 {% endblock %}
