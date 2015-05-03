@@ -1,13 +1,13 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}EthnoDocPublicationBundle:Search:search{% endblock %}
+{% block title %}Recherche{% endblock %}
 
 {% block body %}
     <div class="container-fluid">
         <div class="row">
             {% set queryParams = app.request.query.all %}
             {% block searchbar %}
-                <div class="col-md-3 col-xs-4 col-lg-2 col-lg-offset-1" id="facetNav">
+                <div class="col-md-3 col-xs-4 col-lg-2" id="facetNav">
                     <h3>Affiner la recherche</h3>
                     <h5>Disponible en ligne</h5>
                     <h5>Consultable dans les centres RADdO</h5>
@@ -33,7 +33,11 @@
                         {% for facetName, facet in facets %}
                             <li class="list-unstyled">
                                 <span id="{{ facetName }}"><i class="glyphicon glyphicon-plus"></i>&nbsp;{{ facetName }}</span>
-                                <ul class="{{ facetName }}descriptors desc" >
+                                {% if loop.first %}
+                                <ul class="{{ facetName }}descriptors desc" style="display: block">
+                                {% else %}
+                                <ul class="{{ facetName }}descriptors desc" style="display: none">
+                                {% endif %}
                                 {% for searchTerm in facet.terms %}
                                     <li class="list-unstyled">
                                         {% set queryString =  app.request.query.all|merge({(facetName): searchTerm.term})|url_encode %}
@@ -51,7 +55,7 @@
             {%  endblock %}
 
 
-            <div id="content" class="col-md-9 col-xs-8 col-lg-6 col-xs-offset-4 col-lg-offset-3 col-md-offset-3">
+            <div id="content" class="col-md-9 col-xs-8 col-lg-10 ">
                 <!--search bar-->
                 <div class="row">
                     <div id="resultNb" class="col-xs-4">
@@ -108,7 +112,7 @@
                                     {% set dataResults = results %}
                                 {% endif %}
                                 {% for result in dataResults %}
-                                <div class="col-xs-4 col-md-4 col-lg-4">
+                                <div class="col-xs-6 col-md-2 col-lg-2">
                                     <a href="{{ path('ethnodoc_search', {'id' : result.data.id , 'type' : result.type }) }}?{{ queryParams|url_encode }}" class="thumbnail">
                                         <img src="{{ asset('img/paperboy.jpg') }}" alt="{{ result.data.title }}"/>
                                         <small>{{ result.data.title }}</small>
