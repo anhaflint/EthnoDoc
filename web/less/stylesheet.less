@@ -1,5 +1,10 @@
 @contentColor : #ffffff;
+@bootstrapGrey : #333;
+@lightgrey : #dcdcdc;
 
+/**
+ * Shadow mixins
+ */
 .Shadow{
     box-shadow: -1px 2px 10px 1px rgba(0,0,0,0.7);
 }
@@ -8,12 +13,26 @@
     box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.7),
     -1px 2px 20px rgba(255, 255, 255, 0.6) inset;
 }
-body {
-    background-image: url(../img/footer_lodyas.png);
-    padding-top: 61px;
-    background-attachment: fixed;
+
+html {
+    height: 100%;
 }
 
+body {
+    padding-top: 50px;
+    height: 100%;
+}
+
+/**
+ * Wrapper
+ */
+#wrapper {
+    min-height: ~"calc(100% - 90px)";
+}
+
+/**
+ * Carousel
+ */
 #carousel{
     padding: 1px;
     img{
@@ -23,34 +42,86 @@ body {
         padding: 0px;
     }
 }
+
+/**
+ * Navbar
+ */
+
 .navbar {
     .Shadow;
     li {
-        font-size: 90%;
+        font-size: 1.3em;
     }
+
+    .brand {
+        padding-top: 10px;
+        color: @lightgrey;
+        img {
+            margin-top: 10px;
+        }
+    }
+}
+
+/**
+ * Footer
+ */
+#footer {
+    background-color: @bootstrapGrey;
+    height: 90px;
+    bottom: 0px;
+    position: relative;
+    width: 100%;
+    padding-top: 10px;
+    text-align: center;
+    div {
+        height: 70px;
+        margin-bottom: 10px;
+        padding-top: 5px;
+        img {
+            margin: 2px;
+        }
+    }
+    a {
+        color: @lightgrey;
+    }
+    div.border-left {
+        border-left: solid 1px @lightgrey;
+    }
+}
+
+
+
+/**
+ * Page content
+ */
+#content {
+    background-color: @contentColor;
+    min-height: 100%;
+    padding-top: 20px;
+    .Shadow;
+}
+
+#resultNb {
+    padding-left: 40px;
+    padding-top: 10px;
+}
+
+.breadcrumb i {
+    margin-left: 3px;
 }
 
 #ariane {
     margin-top: 10px;
 }
 
-#content {
-    background-color: @contentColor;
-    height: 100%;
-    .Shadow;
-    padding-top: 20px;
-}
-#resultNb {
-    padding-left: 40px;
-    padding-top: 10px;
-}
 
+/**
+ * Facet menu
+ */
 #facetNav{
     background-color: @contentColor;
-    //height: 600px;
+    min-height: 100%;
     .inShadow;
-    position: fixed;
-    overflow: auto;
 
     #descriptors {
         span:hover {
@@ -63,6 +134,3 @@ body {
     }
 }
 
-.breadcrumb i {
-  margin-left: 3px;
-}
