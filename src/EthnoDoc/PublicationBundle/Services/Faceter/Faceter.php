@@ -20,6 +20,7 @@ class Faceter {
     }
 
     /**
+     * Returns a filter given the user's selection
      * @param $params
      * @return \Elastica\Filter\Bool
      */
@@ -34,6 +35,7 @@ class Faceter {
     }
 
     /**
+     * Returns the facet filtered by $filter corresponding to the given field name $facetName
      * @param $facetName
      * @param $filter
      * @return Terms
@@ -42,18 +44,41 @@ class Faceter {
     {
         $facet = new \Elastica\Facet\Terms($facetName);
         $facet->setField($facetName)
-            ->setAllTerms(false)
-            ->setSize(5);
+            ->setAllTerms(false);
         $facet->setFilter($filter);
 
         return $facet;
     }
 
     /**
+     * Returns the facets collection in array $facetFields given the $filter Bool filter
+     * @param array $facetFields
+     * @param \Elastica\Filter\Bool $filter
+     * @return array
+     */
+    public function getFacetCollection(array $facetFields, \Elastica\Filter\Bool $filter)
+    {
+        //New query
+        $query = new \Elastica\Query();
+
+        //Add facets to query
+        foreach($facetFields as $key => $facetField) {
+            $query->addFacet($this->getFacet($facetField, $filter));
+        }
+
+        $search = $this->index->search($query);
+
+        //get facets
+        return $search->getFacets();
+    }
+
+    /**
+     * Returns the result of user's selection
      * @param $selection
+     * @param $page
      * @return \Elastica\ResultSet
      */
-    public function getFacetSelection($selection)
+    public function getFacetSelection($selection, $page)
     {
         $results = null;
         $query_part = new \Elastica\Query\Bool();
@@ -66,7 +91,7 @@ class Faceter {
         }
 
         if(!empty($selection)){
-            $results = $this->index->search($query_part);
+            $results = $this->index->search($query_part, array('from' => $page*10));
         }
 
         return $results;
