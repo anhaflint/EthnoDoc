@@ -1,6 +1,6 @@
 ethnodoc_search:
-    path:     /search/{type}/{id}
-    defaults: { _controller: EthnoDocPublicationBundle:Search:search, type: null, id: null }
+    path:     /search/{page}/{type}/{id}
+    defaults: { _controller: EthnoDocPublicationBundle:Search:search, type: null, id: null, page: 0 }
 
 ethnodoc_autocomplete:
     path:       /autocomplete/{searchPhrase}
