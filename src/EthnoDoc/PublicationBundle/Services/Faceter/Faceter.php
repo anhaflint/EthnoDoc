@@ -91,7 +91,7 @@ class Faceter {
         }
 
         if(!empty($selection)){
-            $results = $this->index->search($query_part, array('from' => $page*10));
+            $results = $this->index->search($query_part, array('from' => ($page-1)*10));
         }
 
         return $results;
