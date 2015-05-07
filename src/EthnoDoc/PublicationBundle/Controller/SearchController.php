@@ -11,58 +11,55 @@ use Symfony\Component\HttpFoundation\Response;
 
 class SearchController extends Controller
 {
-    public function searchAction($id, $type, Request $request)
+    public function searchAction($page, $id, $type, Request $request)
     {
         $faceter = $this->container->get('ethno_doc_publication.faceter');
         $index = $this->get('fos_elastica.index.ethnodoc');
+        $selected = $request->query->all();
         $results = null;
         $notice = null;
         $data = array();
+
+        // Form creation
         $form = $this->createFormBuilder($data)
             ->add('search', 'text')
             ->add('Rechercher', 'submit')
             ->getForm();
 
-        $selected = $request->query->all();
-
-        //Global Query
-        $query = new \Elastica\Query();
-        //Terms Filter
-        $filter = $faceter->getFilter($selected);
-        //Facet Creation
-        $query->addFacet($faceter->getFacet('country', $filter));
-        $query->addFacet($faceter->getFacet('artist', $filter));
-        $query->addFacet($faceter->getFacet('instrument', $filter));
-        $query->addFacet($faceter->getFacet('culture', $filter));
-
-        $search = $index->search($query);
-        $facets = $search->getFacets();
+        //get facet collection according to user's selection
+        $facets = $faceter->getFacetCollection(
+            array('country', '_type', 'culture', 'title'), $faceter->getFilter($selected)
+        );
 
         //Build Query
-        $results = $faceter->getFacetSelection($selected);
+        $results = $faceter->getFacetSelection($selected, $page);
 
 
-        if($id !== null && $type !== null) {
-            $notice = $faceter->getFacetSelection(array('id' => $id, '_type' => $type))->getResults();
+
+        //Display selected note on user's selection
+        if( null !== $id && null !== $type) {
+            $notice = $faceter->getFacetSelection(array('id' => $id, '_type' => $type), 1)->getResults();
             return $this->render('EthnoDocPublicationBundle:Search:printNote.html.twig', array(
                 'results' => $results,
                 'facets' => $facets,
                 'notice' => $notice[0]->getData(),
                 'type' => $type,
+                'page' => $page,
                 'form' => $form->createView()
             ));
         }
 
+        //Display textual search results
         if($request->getMethod() === 'POST') {
             $form->handleRequest($request);
             $data = $form->getData()['search'];
-            $finder = $this->container->get('fos_elastica.finder.ethnodoc');
             $results = $index->search('*'.$data.'*', 20)->getResults();
         }
 
         return $this->render('EthnoDocPublicationBundle:Search:search.html.twig', array(
             'results' => $results,
             'facets' => $facets,
+            'page' => $page,
             'form' => $form->createView()
         ));
     }
@@ -71,7 +68,6 @@ class SearchController extends Controller
     {
         $index = $this->container->get('fos_elastica.index.ethnodoc');
         if(null !== $searchPhrase) {
-            $finder = $this->container->get('fos_elastica.finder.ethnodoc');
             $results = $index->search('*'.$searchPhrase.'*', 5)->getResults();
             $names = [];
 
