@@ -35,6 +35,13 @@ abstract class Note
     private $keyWords;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="url", type="string", length=255, nullable=true)
+     */
+    private $url;
+
+    /**
      * Set keyWords
      *
      * @param string $keyWords
@@ -101,5 +108,28 @@ abstract class Note
     public function getCountry()
     {
         return $this->country;
+    }
+
+    /**
+     * Set url
+     *
+     * @param string $url
+     * @return Note
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * Get url
+     *
+     * @return string 
+     */
+    public function getUrl()
+    {
+        return $this->url;
     }
 }
