@@ -9,8 +9,6 @@
             {% block searchbar %}
                 <div class="col-md-3 col-xs-4 col-lg-2" id="facetNav">
                     <h3>Affiner la recherche</h3>
-                    <h5>Disponible en ligne</h5>
-                    <h5>Consultable dans les centres RADdO</h5>
                     <ul id="descriptors">
                         <!--
                         <li>Genre
@@ -103,7 +101,6 @@
                 <hr />
                 <!--thumbnails-->
                 <div class="col-xs-12 col-md-12 col-lg-12" >
-                    <div class="row">
                         {% block searchResult %}
                             {% if results is not null %}
                                 {% if results.results is defined %}
@@ -112,17 +109,45 @@
                                     {% set dataResults = results %}
                                 {% endif %}
                                 {% for result in dataResults %}
-                                <div class="col-xs-6 col-md-2 col-lg-2">
-                                    <a href="{{ path('ethnodoc_search', {'id' : result.data.id , 'type' : result.type }) }}?{{ queryParams|url_encode }}" class="thumbnail">
-                                        <img src="{{ asset('img/paperboy.jpg') }}" alt="{{ result.data.title }}"/>
-                                        <small>{{ result.data.title }}</small>
-                                    </a>
-                                </div>
+                                    {% if loop.first or loop.index % 5 == 0 %}
+                                        <div class="row">
+                                    {% endif %}
+                                        <div class="col-xs-6 col-md-2 col-lg-2">
+                                            <a href="{{ path('ethnodoc_search', {'id' : result.data.id , 'type' : result.type }) }}?{{ queryParams|url_encode }}" class="thumbnail">
+                                                {% if result.type == "IcoVideoGraphyNote" and result.url is not null %}
+                                                <img src="{{ result.url }}" alt="{{ result.data.title }}"/>
+                                                {% elseif result.type != "IcoVideoGraphyNote"%}
+                                                <div><i class="glyphicon glyphicon-music"></i></div>
+                                                {% endif %}
+                                                <small>{{ result.data.title }}</small>
+                                            </a>
+                                        </div>
+                                    {% if loop.index % 5 == 0 or loop.last %}
+                                        </div>
+                                    {% endif %}
                                 {% endfor %}
                             {% endif %}
                         {% endblock %}
-                    </div>
                 </div>
+                {% block paginator %}
+                    {% set nbPages =  (nbResults / 10)|round %}
+                    {% if nbPages == 0 %}
+                        {% set nbPages = nbPages + 1%}
+                    {% endif %}
+                    {% if results is not empty %}
+                    <nav>
+                        <ul class="pagination">
+                            {% for nb in 1..10 %}
+                                {% if nb == page %}
+                                    <li><a href="{{ path('ethnodoc_search', {'page' : nb}) }}?{{ app.request.query.all|url_encode }}" class="selected-page">{{ nb }}</a></li>
+                                {% else %}
+                                    <li><a href="{{ path('ethnodoc_search', {'page' : nb}) }}?{{ app.request.query.all|url_encode }}">{{ nb }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </nav>
+                    {% endif %}
+                {% endblock %}
             </div>
 
         </div>
