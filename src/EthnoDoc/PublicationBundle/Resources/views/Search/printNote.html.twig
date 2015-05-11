@@ -7,14 +7,14 @@
         <ol class="breadcrumb">
             {% for key, q_selection in queryParams %}
                 <li>
-                    <a href="{{ app.request.uri|replace( {(key) : '', (q_selection) : '', (type)~'/' : '', (notice.id) : ''}) }}">
+                    <a href="{{ app.request.uri|replace( {(key) : '', (q_selection) : '', (type)~'/' : '', (notice.id) : ''})|replace( { (page)~'/' : page}) }}">
                         {{ key }} : {{ q_selection }}
                         <i class="glyphicon glyphicon-remove"></i>
                     </a>
                 </li>
             {% endfor %}
                 <li>
-                    <a href="{{ app.request.uri|replace( {(type)~'/' : '', (notice.id) : ''})|replace( { 'search/' : 'search'}) }}">
+                    <a href="{{ app.request.uri|replace( {(type)~'/' : '', (notice.id) : ''})|replace( { (page)~'/' : page}) }}">
                         Sélection : {{ notice.title }}
                         <i class="glyphicon glyphicon-remove"></i>
                     </a>
@@ -29,6 +29,9 @@
     <hr/>
     <div>
         <ul>
+        {% if notice.url is not null %}
+            <li><strong>Ressource : </strong><a href="{{ notice.url }}" target="_blank">cliquez ici</a> </li>
+        {% endif %}
         {% if type == 'EditedMusicalNote' or type == 'NonEditedMusicalNote' or type == 'HandWrittenNote' %}
             <li><strong>Incipit littéraire du couplet (FR) : </strong>{{ notice.lead_in_couplet_f_r }}</li>
             <li><strong>Incipit littéraire du refrain (FR) : </strong>{{ notice.lead_in_refrain_f_r }}</li>
@@ -76,4 +79,7 @@
         {% endif %}
         </ul>
     </div>
+{% endblock %}
+
+{% block paginator %}
 {% endblock %}

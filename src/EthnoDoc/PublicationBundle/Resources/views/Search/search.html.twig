@@ -9,38 +9,16 @@
             {% block searchbar %}
                 <div class="col-md-3 col-xs-4 col-lg-2" id="facetNav">
                     <h3>Affiner la recherche</h3>
-                    <h5>Disponible en ligne</h5>
-                    <h5>Consultable dans les centres RADdO</h5>
                     <ul id="descriptors">
-                        <!--
-                        <li>Genre
-                            <ul>
-                                <li>
-                                    Musical
-                                </li>
-                                <li>
-                                    Iconographique
-                                </li>
-                                <li>
-                                    Videographique
-                                </li>
-                                <li>
-                                    Manuscrit
-                                </li>
-                            </ul>
-                        </li>
-                        -->
                         {% for facetName, facet in facets %}
                             <li class="list-unstyled">
+                                {% if facet.terms is not empty %}
                                 <span id="{{ facetName }}"><i class="glyphicon glyphicon-plus"></i>&nbsp;{{ facetName }}</span>
-                                {% if loop.first %}
-                                <ul class="{{ facetName }}descriptors desc" style="display: block">
-                                {% else %}
-                                <ul class="{{ facetName }}descriptors desc" style="display: none">
-                                {% endif %}
+                                <ul class="{{ facetName }}descriptors desc">
+
                                 {% for searchTerm in facet.terms %}
                                     <li class="list-unstyled">
-                                        {% set queryString =  app.request.query.all|merge({(facetName): searchTerm.term})|url_encode %}
+                                        {% set queryString =  app.request.query.all|merge({(facetName): searchTerm.term|replace(' ', '_')})|url_encode %}
                                         <i class="glyphicon glyphicon-play"></i>
                                         <a id="{{ searchTerm.term }}" href="{{ path('ethnodoc_search') }}?{{ queryString }}">
                                             {{ searchTerm.term }} ({{ searchTerm.count }})
@@ -48,6 +26,7 @@
                                     </li>
                                 {% endfor %}
                                 </ul>
+                                {% endif %}
                             </li>
                         {% endfor %}
                     </ul>
@@ -86,12 +65,25 @@
                 </div>
                 {% block ariane %}
                     <div id="ariane">
-                        {% if queryParams is not empty %}
+                        {% if selected is not empty %}
                         <ol class="breadcrumb">
-                            {% for key, q_selection in queryParams %}
+                            {% for key,selection in selected %}
                                 <li>
-                                    <a href="{{ app.request.uri|replace( { (key) : '', (q_selection) : ''}) }}">
-                                        {{ key }} : {{ q_selection }}
+                                    <!-- For each selected descriptor, make a link which excludes this selector -->
+                                    {% set urlpath = "" %}
+                                    {% set outerLoopIndex = loop.index %}
+                                    {% for innerKey,innerSelection in selected %}
+                                        {% if loop.index == 1 %}
+                                            {% set urlpath = (urlpath)~"?" %}
+                                        {% elseif loop.index != loop.last and (urlpath) != "?" or (loop.index == loop.last and outerLoopIndex == 1) %}
+                                            {% set urlpath = (urlpath)~"&" %}
+                                        {% endif %}
+                                        {% if innerKey != key %}
+                                            {% set urlpath = (urlpath)~(innerKey)~"="~(innerSelection|replace(' ', '_')) %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    <a href="{{ urlpath }}">
+                                        {{ key }} : {{ selection }}
                                         <i class="glyphicon glyphicon-remove"></i>
                                     </a>
                                 </li>
@@ -103,7 +95,6 @@
                 <hr />
                 <!--thumbnails-->
                 <div class="col-xs-12 col-md-12 col-lg-12" >
-                    <div class="row">
                         {% block searchResult %}
                             {% if results is not null %}
                                 {% if results.results is defined %}
@@ -112,17 +103,45 @@
                                     {% set dataResults = results %}
                                 {% endif %}
                                 {% for result in dataResults %}
-                                <div class="col-xs-6 col-md-2 col-lg-2">
-                                    <a href="{{ path('ethnodoc_search', {'id' : result.data.id , 'type' : result.type }) }}?{{ queryParams|url_encode }}" class="thumbnail">
-                                        <img src="{{ asset('img/paperboy.jpg') }}" alt="{{ result.data.title }}"/>
-                                        <small>{{ result.data.title }}</small>
-                                    </a>
-                                </div>
+                                    {% if loop.first or loop.index % 5 == 0 %}
+                                        <div class="row">
+                                    {% endif %}
+                                        <div class="col-xs-6 col-md-2 col-lg-2">
+                                            <a href="{{ path('ethnodoc_search', {'id' : result.data.id , 'type' : result.type }) }}?{{ queryParams|url_encode }}" class="thumbnail">
+                                                {% if result.type == "IcoVideoGraphyNote" and result.url is not null %}
+                                                <img src="{{ result.url }}" alt="{{ result.data.title }}"/>
+                                                {% elseif result.type != "IcoVideoGraphyNote"%}
+                                                <div><i class="glyphicon glyphicon-music"></i></div>
+                                                {% endif %}
+                                                <small>{{ result.data.title }}</small>
+                                            </a>
+                                        </div>
+                                    {% if loop.index % 5 == 0 or loop.last %}
+                                        </div>
+                                    {% endif %}
                                 {% endfor %}
                             {% endif %}
                         {% endblock %}
-                    </div>
                 </div>
+                {% block paginator %}
+                    {% set nbPages =  (nbResults / 10)|round %}
+                    {% if nbPages == 0 %}
+                        {% set nbPages = nbPages + 1%}
+                    {% endif %}
+                    {% if results is not empty %}
+                    <nav>
+                        <ul class="pagination">
+                            {% for nb in 1..10 %}
+                                {% if nb == page %}
+                                    <li><a href="{{ path('ethnodoc_search', {'page' : nb}) }}?{{ app.request.query.all|url_encode }}" class="selected-page">{{ nb }}</a></li>
+                                {% else %}
+                                    <li><a href="{{ path('ethnodoc_search', {'page' : nb}) }}?{{ app.request.query.all|url_encode }}">{{ nb }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </nav>
+                    {% endif %}
+                {% endblock %}
             </div>
 
         </div>
