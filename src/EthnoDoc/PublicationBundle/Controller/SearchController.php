@@ -16,6 +16,10 @@ class SearchController extends Controller
         $faceter = $this->container->get('ethno_doc_publication.faceter');
         $index = $this->get('fos_elastica.index.ethnodoc');
         $selected = $request->query->all();
+        foreach($selected as $key => $select) {
+            $selected[$key] = str_replace('_', ' ', $selected[$key]);
+        }
+
         $results = null;
         $notice = null;
         $data = array();
@@ -28,7 +32,7 @@ class SearchController extends Controller
 
         //get facet collection according to user's selection
         $facets = $faceter->getFacetCollection(
-            array('country', '_type', 'culture', 'title'), $faceter->getFilter($selected)
+            array('_type', 'country', 'culture', 'title', 'decade'), $faceter->getFilter($selected)
         );
 
         //Build Query
@@ -40,6 +44,7 @@ class SearchController extends Controller
         if( null !== $id && null !== $type) {
             $notice = $faceter->getFacetSelection(array('id' => $id, '_type' => $type), 1)->getResults();
             return $this->render('EthnoDocPublicationBundle:Search:printNote.html.twig', array(
+                'selected' => $selected,
                 'results' => $results,
                 'facets' => $facets,
                 'notice' => $notice[0]->getData(),
@@ -57,6 +62,7 @@ class SearchController extends Controller
         }
 
         return $this->render('EthnoDocPublicationBundle:Search:search.html.twig', array(
+            'selected' => $selected,
             'results' => $results,
             'facets' => $facets,
             'page' => $page,

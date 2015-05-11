@@ -10,35 +10,15 @@
                 <div class="col-md-3 col-xs-4 col-lg-2" id="facetNav">
                     <h3>Affiner la recherche</h3>
                     <ul id="descriptors">
-                        <!--
-                        <li>Genre
-                            <ul>
-                                <li>
-                                    Musical
-                                </li>
-                                <li>
-                                    Iconographique
-                                </li>
-                                <li>
-                                    Videographique
-                                </li>
-                                <li>
-                                    Manuscrit
-                                </li>
-                            </ul>
-                        </li>
-                        -->
                         {% for facetName, facet in facets %}
                             <li class="list-unstyled">
+                                {% if facet.terms is not empty %}
                                 <span id="{{ facetName }}"><i class="glyphicon glyphicon-plus"></i>&nbsp;{{ facetName }}</span>
-                                {% if loop.first %}
-                                <ul class="{{ facetName }}descriptors desc" style="display: block">
-                                {% else %}
-                                <ul class="{{ facetName }}descriptors desc" style="display: none">
-                                {% endif %}
+                                <ul class="{{ facetName }}descriptors desc">
+
                                 {% for searchTerm in facet.terms %}
                                     <li class="list-unstyled">
-                                        {% set queryString =  app.request.query.all|merge({(facetName): searchTerm.term})|url_encode %}
+                                        {% set queryString =  app.request.query.all|merge({(facetName): searchTerm.term|replace(' ', '_')})|url_encode %}
                                         <i class="glyphicon glyphicon-play"></i>
                                         <a id="{{ searchTerm.term }}" href="{{ path('ethnodoc_search') }}?{{ queryString }}">
                                             {{ searchTerm.term }} ({{ searchTerm.count }})
@@ -46,6 +26,7 @@
                                     </li>
                                 {% endfor %}
                                 </ul>
+                                {% endif %}
                             </li>
                         {% endfor %}
                     </ul>
@@ -84,12 +65,25 @@
                 </div>
                 {% block ariane %}
                     <div id="ariane">
-                        {% if queryParams is not empty %}
+                        {% if selected is not empty %}
                         <ol class="breadcrumb">
-                            {% for key, q_selection in queryParams %}
+                            {% for key,selection in selected %}
                                 <li>
-                                    <a href="{{ app.request.uri|replace( { (key) : '', (q_selection) : ''}) }}">
-                                        {{ key }} : {{ q_selection }}
+                                    <!-- For each selected descriptor, make a link which excludes this selector -->
+                                    {% set urlpath = "" %}
+                                    {% set outerLoopIndex = loop.index %}
+                                    {% for innerKey,innerSelection in selected %}
+                                        {% if loop.index == 1 %}
+                                            {% set urlpath = (urlpath)~"?" %}
+                                        {% elseif loop.index != loop.last and (urlpath) != "?" or (loop.index == loop.last and outerLoopIndex == 1) %}
+                                            {% set urlpath = (urlpath)~"&" %}
+                                        {% endif %}
+                                        {% if innerKey != key %}
+                                            {% set urlpath = (urlpath)~(innerKey)~"="~(innerSelection|replace(' ', '_')) %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    <a href="{{ urlpath }}">
+                                        {{ key }} : {{ selection }}
                                         <i class="glyphicon glyphicon-remove"></i>
                                     </a>
                                 </li>
