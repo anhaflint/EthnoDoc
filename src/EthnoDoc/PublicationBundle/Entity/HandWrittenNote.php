@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * HandWrittenNote
  *
- * @ORM\Table()
+ * @ORM\Table(name="HandWrittenNote")
  * @ORM\Entity(repositoryClass="EthnoDoc\PublicationBundle\Repository\HandWrittenNoteRepository")
  */
 class HandWrittenNote extends Note

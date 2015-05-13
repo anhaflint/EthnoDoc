@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * IcoVideoGraphyNote
  *
- * @ORM\Table()
+ * @ORM\Table(name="IcoVideoGraphyNote")
  * @ORM\Entity(repositoryClass="EthnoDoc\PublicationBundle\Repository\IcoVideoGraphyNoteRepository")
  */
 class IcoVideoGraphyNote extends Note
