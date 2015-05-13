@@ -1,6 +1,4 @@
 /web/bundles/
-/web/css/stylesheet.css
-/web/css/suggestionsBox.css
 /app/bootstrap.php.cache
 /app/cache/*
 /app/config/parameters.yml

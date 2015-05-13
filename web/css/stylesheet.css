@@ -1,0 +1,126 @@
+/**
+ * Shadow mixins
+ */
+.Shadow {
+  box-shadow: -1px 2px 10px 1px rgba(0, 0, 0, 0.7);
+}
+.inShadow {
+  box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.7), -1px 2px 20px rgba(255, 255, 255, 0.6) inset;
+}
+html {
+  height: 100%;
+}
+body {
+  padding-top: 50px;
+  height: 100%;
+}
+/**
+ * Wrapper
+ */
+#wrapper {
+  min-height: calc(100% - 90px);
+}
+/**
+ * Carousel
+ */
+#carousel {
+  padding: 1px;
+}
+#carousel img {
+  height: 570px;
+  width: auto;
+  text-align: center;
+  padding: 0px;
+}
+/**
+ * Navbar
+ */
+.navbar {
+  box-shadow: -1px 2px 10px 1px rgba(0, 0, 0, 0.7);
+}
+.navbar li {
+  font-size: 1.3em;
+}
+.navbar .brand {
+  padding-top: 10px;
+  color: #dcdcdc;
+}
+.navbar .brand img {
+  margin-top: 10px;
+}
+/**
+ * Footer
+ */
+#footer {
+  background-color: #333333;
+  height: 90px;
+  bottom: 0px;
+  position: relative;
+  width: 100%;
+  padding-top: 10px;
+  text-align: center;
+}
+#footer div {
+  height: 70px;
+  margin-bottom: 10px;
+  padding-top: 5px;
+}
+#footer div img {
+  margin: 2px;
+}
+#footer a {
+  color: #dcdcdc;
+}
+#footer div.border-left {
+  border-left: solid 1px #dcdcdc;
+}
+/**
+ * Page content
+ */
+#content {
+  background-color: #ffffff;
+  min-height: 100%;
+  padding-top: 20px;
+  box-shadow: -1px 2px 10px 1px rgba(0, 0, 0, 0.7);
+}
+#resultNb {
+  padding-left: 40px;
+  padding-top: 10px;
+}
+.breadcrumb i {
+  margin-left: 3px;
+}
+#ariane {
+  margin-top: 10px;
+}
+/**
+ * Pagination
+ */
+._nav {
+  text-align: center;
+}
+._nav .selected-page {
+  background-color: #337AB7 !important;
+  color: white !important;
+}
+._nav .dropdownPages {
+  height: 180px;
+  overflow: auto;
+}
+/**
+ * Facet menu
+ */
+#facetNav {
+  background-color: #ffffff;
+  min-height: 100%;
+  box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.7), -1px 2px 20px rgba(255, 255, 255, 0.6) inset;
+}
+#facetNav #descriptors {
+  padding-left: 0px;
+}
+#facetNav #descriptors span:hover {
+  cursor: pointer;
+}
+#facetNav .desc {
+  padding-left: 19px;
+}
