@@ -60,9 +60,9 @@ class SpokenArchiveNote extends Note
     /**
      * @var string
      *
-     * @ORM\Column(name="collection", type="string", length=255)
+     * @ORM\ManyToMany(targetEntity="EthnoDoc\PublicationBundle\Entity\Collection", cascade={"persist"})
      */
-    private $collection;
+    private $collections;
 
     /**
      * @var string
@@ -74,6 +74,7 @@ class SpokenArchiveNote extends Note
     public function __construct()
     {
         $this->keyWords = new ArrayCollection();
+        $this->collections = new ArrayCollection();
     }
 
     /**
@@ -202,26 +203,36 @@ class SpokenArchiveNote extends Note
     }
 
     /**
-     * Set collection
+     * Add collection
      *
-     * @param string $collection
-     * @return spokenArchiveNote
+     * @param Collection $collection
+     * @return SpokenArchiveNote
      */
-    public function setCollection($collection)
+    public function addCollection(Collection $collection)
     {
-        $this->collection = $collection;
+        $this->collections[] = $collection;
 
         return $this;
     }
 
     /**
-     * Get collection
+     * Remove collection from collection list
+     *
+     * @param Collection $collection
+     */
+    public function removeCollection(Collection $collection)
+    {
+        $this->collections->removeElement($collection);
+    }
+
+    /**
+     * Get collections
      *
      * @return string 
      */
     public function getCollection()
     {
-        return $this->collection;
+        return $this->collections;
     }
 
     /**

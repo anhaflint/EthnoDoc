@@ -46,9 +46,9 @@ class NonEditedMusicalNote extends MusicalNote
     /**
      * @var string
      *
-     * @ORM\Column(name="collection", type="string", length=255)
+     * @ORM\ManyToMany(targetEntity="EthnoDoc\PublicationBundle\Entity\Collection", cascade={"persist"})
      */
-    private $collection;
+    private $collections;
 
     /**
      * @var string
@@ -84,6 +84,7 @@ class NonEditedMusicalNote extends MusicalNote
         $this->functionUses = new ArrayCollection();
         $this->usesCircumstance = new ArrayCollection();
         $this->expressions = new ArrayCollection();
+        $this->collections = new ArrayCollection();
     }
 
     /**
@@ -183,8 +184,8 @@ class NonEditedMusicalNote extends MusicalNote
     /**
      * add expression
      *
-     * @param string $expression
-     * @return nonEditedMusicalNote
+     * @param Expression|string $expression
+     * @return NonEditedMusicalNote
      */
     public function addExpression(Expression $expression)
     {
@@ -261,16 +262,26 @@ class NonEditedMusicalNote extends MusicalNote
     }
 
     /**
-     * Set collection
+     * Add a collection to the collection list
      *
-     * @param string $collection
-     * @return nonEditedMusicalNote
+     * @param Collection $collection
+     * @return $this
      */
-    public function setCollection($collection)
+    public function addCollection(Collection $collection)
     {
-        $this->collection = $collection;
+        $this->collections[] = $collection;
 
         return $this;
+    }
+
+    /**
+     * Remove collection from collection list
+     *
+     * @param Collection $collection
+     */
+    public function removeCollection(Collection $collection)
+    {
+        $this->collections->removeElement($collection);
     }
 
     /**
@@ -280,7 +291,7 @@ class NonEditedMusicalNote extends MusicalNote
      */
     public function getCollection()
     {
-        return $this->collection;
+        return $this->collections;
     }
 
     /**
