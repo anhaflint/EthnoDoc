@@ -32,9 +32,9 @@ class NonEditedMusicalNote extends MusicalNote
     /**
      * @var string
      *
-     * @ORM\Column(name="collector", type="string", length=255)
+     * @ORM\ManyToMany(targetEntity="EthnoDoc\PublicationBundle\Entity\Collector", cascade={"persist"})
      */
-    private $collector;
+    private $collectors;
 
     /**
      * @var string
@@ -86,6 +86,7 @@ class NonEditedMusicalNote extends MusicalNote
         $this->expressions = new ArrayCollection();
         $this->collections = new ArrayCollection();
         $this->witnesses = new ArrayCollection();
+        $this->collectors = new ArrayCollection();
     }
 
     /**
@@ -250,16 +251,26 @@ class NonEditedMusicalNote extends MusicalNote
     }
 
     /**
-     * Set collector
+     * add collector
      *
-     * @param string $collector
+     * @param Collector $collector
      * @return nonEditedMusicalNote
      */
-    public function setCollector($collector)
+    public function addCollector(Collector $collector)
     {
-        $this->collector = $collector;
+        $this->collectors[] = $collector;
 
         return $this;
+    }
+
+    /**
+     * Remove collector
+     *
+     * @param Collector $collector
+     */
+    public function removeCollector(Collector $collector)
+    {
+        $this->collectors->removeElement($collector);
     }
 
     /**
@@ -269,7 +280,7 @@ class NonEditedMusicalNote extends MusicalNote
      */
     public function getCollector()
     {
-        return $this->collector;
+        return $this->collectors;
     }
 
     /**

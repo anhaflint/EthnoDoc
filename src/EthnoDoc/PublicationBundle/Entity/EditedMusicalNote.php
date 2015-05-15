@@ -182,7 +182,7 @@ class EditedMusicalNote extends MusicalNote
     /**
      * add instruments
      *
-     * @param string $instrument
+     * @param Instrument $instrument
      * @return EditedMusicalNote
      */
     public function addInstrument(Instrument $instrument)
