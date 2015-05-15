@@ -24,9 +24,9 @@ abstract class Note
     /**
      * @var string
      *
-     * @ORM\Column(name="country", type="string", length=255)
+     * @ORM\Column(name="locality", type="string", length=255)
      */
-    private $country;
+    private $locality;
 
     /**
      * @var string
