@@ -32,13 +32,6 @@ class NonEditedMusicalNote extends MusicalNote
     /**
      * @var string
      *
-     * @ORM\Column(name="expression", type="string", length=255)
-     */
-    private $expression;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="survey", type="string", length=255)
      */
     private $survey;
@@ -78,11 +71,19 @@ class NonEditedMusicalNote extends MusicalNote
      */
     private $usesCircumstance;
 
+    /**
+     * @var string
+     *
+     * @ORM\ManyToMany(targetEntity="EthnoDoc\PublicationBundle\Entity\Expression", cascade={"persist"})
+     */
+    private $expressions;
+
     public function __construct()
     {
         $this->keyWords = new ArrayCollection();
         $this->functionUses = new ArrayCollection();
         $this->usesCircumstance = new ArrayCollection();
+        $this->expressions = new ArrayCollection();
     }
 
     /**
@@ -180,26 +181,37 @@ class NonEditedMusicalNote extends MusicalNote
     }
 
     /**
-     * Set expression
+     * add expression
      *
      * @param string $expression
      * @return nonEditedMusicalNote
      */
-    public function setExpression($expression)
+    public function addExpression(Expression $expression)
     {
-        $this->expression = $expression;
+        $this->expressions[] = $expression;
 
         return $this;
     }
 
+
     /**
-     * Get expression
+     * Remove expression from expressions
+     *
+     * @param Expression $expression
+     */
+    public function removeExpression(Expression $expression)
+    {
+        $this->expressions->removeElement($expression);
+    }
+
+    /**
+     * Get expressions
      *
      * @return string 
      */
-    public function getExpression()
+    public function getExpressions()
     {
-        return $this->expression;
+        return $this->expressions;
     }
 
     /**
