@@ -148,21 +148,27 @@ body {
 /**
  * Facet menu
  */
-
 #facetNav{
     background-color: @contentColor;
     min-height: 100%;
     .inShadow;
-
     #descriptors {
+        font-size : 0.81em;
         padding-left: 0px;
         span:hover {
             cursor: pointer;
         }
     }
+    .facetName {
+        font-size: 1.2em;
+    }
 
     .desc {
         padding-left: 19px;
+    }
+
+    .facetCount {
+        color : dimgrey;
     }
 }
 

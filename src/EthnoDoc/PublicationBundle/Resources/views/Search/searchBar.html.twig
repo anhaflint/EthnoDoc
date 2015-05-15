@@ -1,0 +1,24 @@
+<div class="col-md-3 col-xs-4 col-lg-2" id="facetNav">
+    <h3>Affiner la recherche</h3>
+    <ul id="descriptors">
+        {% for facetName, facet in facets %}
+            <li class="list-unstyled">
+                {% if facet.terms is not empty %}
+                    <span id="{{ facetName }}" class="facetName"><i class="glyphicon glyphicon-plus"></i>&nbsp;{{ facetName }}</span>
+                    <ul class="{{ facetName }}descriptors desc">
+
+                        {% for searchTerm in facet.terms %}
+                            <li class="list-unstyled">
+                                {% set queryString =  app.request.query.all|merge({(facetName): searchTerm.term|replace(' ', '_')})|url_encode %}
+                                <a id="{{ searchTerm.term }}" href="{{ path('ethnodoc_search') }}?{{ queryString }}">
+                                    {{ searchTerm.term }}
+                                </a>
+                                <span class="facetCount">({{ searchTerm.count }})</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</div>

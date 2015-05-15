@@ -7,195 +7,44 @@
         <div class="row">
             {% set queryParams = app.request.query.all %}
             {% block searchbar %}
-                <div class="col-md-3 col-xs-4 col-lg-2" id="facetNav">
-                    <h3>Affiner la recherche</h3>
-                    <ul id="descriptors">
-                        {% for facetName, facet in facets %}
-                            <li class="list-unstyled">
-                                {% if facet.terms is not empty %}
-                                <span id="{{ facetName }}"><i class="glyphicon glyphicon-plus"></i>&nbsp;{{ facetName }}</span>
-                                <ul class="{{ facetName }}descriptors desc">
-
-                                {% for searchTerm in facet.terms %}
-                                    <li class="list-unstyled">
-                                        {% set queryString =  app.request.query.all|merge({(facetName): searchTerm.term|replace(' ', '_')})|url_encode %}
-                                        <i class="glyphicon glyphicon-play"></i>
-                                        <a id="{{ searchTerm.term }}" href="{{ path('ethnodoc_search') }}?{{ queryString }}">
-                                            {{ searchTerm.term }} ({{ searchTerm.count }})
-                                        </a>
-                                    </li>
-                                {% endfor %}
-                                </ul>
-                                {% endif %}
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
+                {{ include("EthnoDocPublicationBundle:Search:searchBar.html.twig") }}
             {%  endblock %}
 
 
             <div id="content" class="col-md-9 col-xs-8 col-lg-10 ">
                 <!--search bar-->
                 <div class="row">
-                    <div id="resultNb" class="col-xs-4">
-                        {% if results is not null and results.totalHits is defined %}
-                            {% set nbResults = results.totalHits %}
-                        {% else %}
-                            {% set nbResults = facets.country.total %}
-                        {% endif %}
-                        {{ nbResults }}
-                        {% if nbResults == 1 %}
-                            résultat trouvé
-                        {% else %}
-                            résultats trouvés
-                        {% endif %}
-                    </div>
+                    {% if results is not null and results.totalHits is defined %}
+                        {% set nbResults = results.totalHits %}
+                    {% else %}
+                        {% set nbResults = facets.locality.total %}
+                    {% endif %}
+                    {{ include('EthnoDocPublicationBundle:Search:resultNumber.html.twig') }}
                     <!-- Search Form -->
                     <div>
-                    {{ form_start(form, {'attr': {'class': 'col-xs-8 pull-right form-inline'} }) }}
-                        {{ form_errors(form) }}
-                        <div id="searchBar" class="col-xs-8 form-group">
-                            {{ form_widget(form.search, {'attr' : {'class' : 'typeahead form-control', 'placeholder' : 'Rechercher'} }) }}
-                        </div>
-                        {{ form_widget(form.Rechercher, {'attr' : {'class' : 'btn btn-default'} }) }}
-                        {{ form_rest(form) }}
-                    {{ form_end(form) }}
-                    </div>
-                    <!-- ./search form -->
+                        {{ form_start(form, {'attr': {'class': 'col-xs-8 pull-right form-inline'} }) }}
+                            {{ form_errors(form) }}
+                            <div id="searchBar" class="col-xs-8 form-group">
+                                {{ form_widget(form.search, {'attr' : {'class' : 'typeahead form-control', 'placeholder' : 'Rechercher'} }) }}
+                            </div>
+                            {{ form_widget(form.Rechercher, {'attr' : {'class' : 'btn btn-default'} }) }}
+                            {{ form_rest(form) }}
+                        {{ form_end(form) }}
+                    </div><!-- ./search form -->
                 </div>
                 {% block ariane %}
-                    <div id="ariane">
-                        {% if selected is not empty %}
-                        <ol class="breadcrumb">
-                            {% for key,selection in selected %}
-                                <li>
-                                    <!-- For each selected descriptor, make a link which excludes this selector -->
-                                    {% set urlpath = "" %}
-                                    {% set outerLoopIndex = loop.index %}
-                                    {% for innerKey,innerSelection in selected %}
-                                        {% if loop.index == 1 %}
-                                            {% set urlpath = (urlpath)~"?" %}
-                                        {% elseif loop.index != loop.last and (urlpath) != "?" or (loop.index == loop.last and outerLoopIndex == 1) %}
-                                            {% set urlpath = (urlpath)~"&" %}
-                                        {% endif %}
-                                        {% if innerKey != key %}
-                                            {% set urlpath = (urlpath)~(innerKey)~"="~(innerSelection|replace(' ', '_')) %}
-                                        {% endif %}
-                                    {% endfor %}
-                                    <a href="{{ urlpath }}">
-                                        {{ key }} : {{ selection }}
-                                        <i class="glyphicon glyphicon-remove"></i>
-                                    </a>
-                                </li>
-                            {% endfor %}
-                        </ol>
-                        {% endif %}
-                    </div>
+                    {{ include('EthnoDocPublicationBundle:Search:ariane.html.twig') }}
                 {% endblock %}
                 <hr />
-                <!--thumbnails-->
                 <div class="col-xs-12 col-md-12 col-lg-12" >
-                        {% block searchResult %}
-                            {% if results is not null %}
-                                {% if results.results is defined %}
-                                    {% set dataResults = results.results %}
-                                {% else %}
-                                    {% set dataResults = results %}
-                                {% endif %}
-                                {% for result in dataResults %}
-                                    {% if loop.first or loop.index % 5 == 0 %}
-                                        <div class="row">
-                                    {% endif %}
-                                        <div class="col-xs-6 col-md-2 col-lg-2">
-                                            <a href="{{ path('ethnodoc_search', {'id' : result.data.id , 'type' : result.type }) }}?{{ queryParams|url_encode }}" class="thumbnail">
-                                                {% if result.type == "IcoVideoGraphyNote" and result.url is not null %}
-                                                <img src="{{ result.url }}" alt="{{ result.data.title }}"/>
-                                                {% elseif result.type != "IcoVideoGraphyNote"%}
-                                                <div><i class="glyphicon glyphicon-music"></i></div>
-                                                {% endif %}
-                                                <small>{{ result.data.title }}</small>
-                                            </a>
-                                        </div>
-                                    {% if loop.index % 5 == 0 or loop.last %}
-                                        </div>
-                                    {% endif %}
-                                {% endfor %}
-                            {% endif %}
-                        {% endblock %}
+                    {% block searchResult %}
+                        {{ include("EthnoDocPublicationBundle:Search:results.html.twig") }}
+                    {% endblock %}
                 </div>
                 {% block paginator %}
-                    {% set nbPages =  (nbResults / 10)|round %}
-                    {% if nbPages == 0 %}
-                        {% set nbPages = nbPages + 1%}
-                    {% endif %}
-                    {% if results is not empty %}
-                    <div class="btn-group _nav col-md-offset-4 col-xs-offset-4 col-lg-offset-4" role="group">
-
-
-                            {% if page > 1 %}
-
-                                {# first page #}
-                                <a role="button" class="btn btn-default" href="{{ path('ethnodoc_search', {'page' : 1}) }}?{{ app.request.query.all|url_encode }}">&lsaquo;&lsaquo;</a>
-
-                                {% if page > 2 %}
-                                    {% if page > 3 %}
-                                    {# in between results dropdown #}
-                                    <div class="btn-group dropup " role="group">
-                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">
-                                            ...
-                                            <span class="caret"></span>
-                                        </a>
-                                        </button>
-                                        <ul class="dropdown-menu dropdownPages" role="menu">
-                                        {% for nb in 2..(page - 2) %}
-                                            <li><a href="{{ path('ethnodoc_search', {'page' : nb}) }}?{{ app.request.query.all|url_encode }}">{{ nb }}</a></li>
-                                        {% endfor %}
-                                        </ul>
-                                    </div>
-                                    {% endif %}
-
-                                    {# previous page #}
-                                    <a role="button" class="btn btn-default" href="{{ path('ethnodoc_search', {'page' : page-1}) }}?{{ app.request.query.all|url_encode }}">&lsaquo;</a>
-                                {% endif %}
-                            {% endif %}
-
-                            {# current page #}
-                            <a role="button" class="btn btn-default selected-page" href="#">{{ page }}</a>
-
-
-                            {% if page < nbPages-1 %}
-                                {# next page #}
-                                <a role="button" class="btn btn-default" href="{{ path('ethnodoc_search', {'page' : page + 1}) }}?{{ app.request.query.all|url_encode }}">&rsaquo;</a>
-
-                                {# in between results dropdown #}
-                                {% if (nbPages - page) > 2 %}
-                                <div class="btn-group dropup" role="group">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <a href="#" data-toggle="dropdown" class="dropdown-toggle">
-                                        ...
-                                        <span class="caret"></span>
-                                    </a>
-                                    </button>
-                                    <ul class="dropdown-menu dropdownPages" role="menu">
-                                        {% for nb in (page + 2)..nbPages-1 %}
-                                            <li><a href="{{ path('ethnodoc_search', {'page' : nb}) }}?{{ app.request.query.all|url_encode }}">{{ nb }}</a></li>
-                                        {% endfor %}
-                                    </ul>
-                                </div>
-                                {% endif %}
-                            {% endif %}
-
-                            {# last page #}
-                            {% if page < nbPages %}
-                                <a role="button" class="btn btn-default" href="{{ path('ethnodoc_search', {'page' : nbPages}) }}?{{ app.request.query.all|url_encode }}">&rsaquo;&rsaquo;</a>
-                            {% endif %}
-                        </div>
-
-                    {% endif %}
+                    {%  include "EthnoDocPublicationBundle:Search:pagination.html.twig"  %}
                 {% endblock %}
             </div>
-
         </div>
     </div>
 

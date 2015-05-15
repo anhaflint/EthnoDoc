@@ -116,11 +116,18 @@ body {
   box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.7), -1px 2px 20px rgba(255, 255, 255, 0.6) inset;
 }
 #facetNav #descriptors {
+  font-size: 0.81em;
   padding-left: 0px;
 }
 #facetNav #descriptors span:hover {
   cursor: pointer;
 }
+#facetNav .facetName {
+  font-size: 1.2em;
+}
 #facetNav .desc {
   padding-left: 19px;
+}
+#facetNav .facetCount {
+  color: dimgrey;
 }
