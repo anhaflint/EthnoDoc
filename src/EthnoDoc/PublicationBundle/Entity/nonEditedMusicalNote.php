@@ -71,10 +71,18 @@ class NonEditedMusicalNote extends MusicalNote
      */
     private $keyWords;
 
+    /**
+     * @var string
+     *
+     * @ORM\ManyToMany(targetEntity="EthnoDoc\PublicationBundle\Entity\UsesCircumstance", cascade={"persist"})
+     */
+    private $usesCircumstance;
+
     public function __construct()
     {
         $this->keyWords = new ArrayCollection();
         $this->functionUses = new ArrayCollection();
+        $this->usesCircumstance = new ArrayCollection();
     }
 
     /**
@@ -113,6 +121,39 @@ class NonEditedMusicalNote extends MusicalNote
     public function getFunctionUses()
     {
         return $this->functionUses;
+    }
+
+    /**
+     * Set usesCircumstance
+     *
+     * @param UsesCircumstance|string $usesCircumstance
+     * @return HandWrittenNote
+     */
+    public function addUsesCircumstance(UsesCircumstance $usesCircumstance)
+    {
+        $this->usesCircumstance[] = $usesCircumstance;
+
+        return $this;
+    }
+
+    /**
+     * remove uses circumstance
+     *
+     * @param UsesCircumstance $usesCircumstance
+     */
+    public function removeUsesCircumstance(UsesCircumstance $usesCircumstance)
+    {
+        $this->usesCircumstance->removeElement($usesCircumstance);
+    }
+
+    /**
+     * Get usesCircumstance
+     *
+     * @return string
+     */
+    public function getUsesCircumstance()
+    {
+        return $this->usesCircumstance;
     }
 
     /**

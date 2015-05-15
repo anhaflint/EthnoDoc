@@ -95,20 +95,6 @@ class HandWrittenNote extends Note
     /**
      * @var string
      *
-     * @ORM\Column(name="usesCircumstance", type="string", length=255)
-     */
-    private $usesCircumstance;
-
-    /**
-     * @var string
-     *
-     * @ORM\ManyToMany(targetEntity="EthnoDoc\PublicationBundle\Entity\FunctionUse", cascade={"persist"})
-     */
-    private $functionUses;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="coiraultTheme", type="string", length=255)
      */
     private $coiraultTheme;
@@ -190,10 +176,25 @@ class HandWrittenNote extends Note
      */
     private $keyWords;
 
+    /**
+     * @var string
+     *
+     * @ORM\ManyToMany(targetEntity="EthnoDoc\PublicationBundle\Entity\UsesCircumstance", cascade={"persist"})
+     */
+    private $usesCircumstance;
+
+    /**
+     * @var string
+     *
+     * @ORM\ManyToMany(targetEntity="EthnoDoc\PublicationBundle\Entity\FunctionUse", cascade={"persist"})
+     */
+    private $functionUses;
+
     public function __construct()
     {
         $this->keyWords = new ArrayCollection();
         $this->functionUses = new ArrayCollection();
+        $this->usesCircumstance = new ArrayCollection();
     }
 
     /**
@@ -441,14 +442,24 @@ class HandWrittenNote extends Note
     /**
      * Set usesCircumstance
      *
-     * @param string $usesCircumstance
+     * @param UsesCircumstance|string $usesCircumstance
      * @return HandWrittenNote
      */
-    public function setUsesCircumstance($usesCircumstance)
+    public function addUsesCircumstance(UsesCircumstance $usesCircumstance)
     {
-        $this->usesCircumstance = $usesCircumstance;
+        $this->usesCircumstance[] = $usesCircumstance;
 
         return $this;
+    }
+
+    /**
+     * remove uses circumstance
+     *
+     * @param UsesCircumstance $usesCircumstance
+     */
+    public function removeUsesCircumstance(UsesCircumstance $usesCircumstance)
+    {
+        $this->usesCircumstance->removeElement($usesCircumstance);
     }
 
     /**
