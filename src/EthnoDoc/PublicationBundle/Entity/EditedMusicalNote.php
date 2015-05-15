@@ -25,13 +25,6 @@ class EditedMusicalNote extends MusicalNote
     /**
      * @var string
      *
-     * @ORM\Column(name="artist", type="string", length=255)
-     */
-    private $artist;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="instrument", type="string", length=255)
      */
     private $instrument;
@@ -71,11 +64,19 @@ class EditedMusicalNote extends MusicalNote
      */
     private $usesCircumstance;
 
+    /**
+     * @var string
+     *
+     * @ORM\ManyToMany(targetEntity="EthnoDoc\PublicationBundle\Entity\Artist", cascade={"persist"})
+     */
+    private $artists;
+
     public function __construct()
     {
         $this->keyWords = new ArrayCollection();
         $this->functionUses = new ArrayCollection();
         $this->usesCircumstance = new ArrayCollection();
+        $this->artists = new ArrayCollection();
     }
 
     /**
@@ -155,11 +156,16 @@ class EditedMusicalNote extends MusicalNote
      * @param string $artist
      * @return EditedMusicalNote
      */
-    public function setArtist($artist)
+    public function addArtist(Artist $artist)
     {
-        $this->artist = $artist;
+        $this->artists[] = $artist;
 
         return $this;
+    }
+
+    public function removeArtist(Artist $artist)
+    {
+        $this->artists->removeElement($artist);
     }
 
     /**
@@ -169,7 +175,7 @@ class EditedMusicalNote extends MusicalNote
      */
     public function getArtist()
     {
-        return $this->artist;
+        return $this->artists;
     }
 
     /**
