@@ -53,9 +53,9 @@ class SpokenArchiveNote extends Note
     /**
      * @var string
      *
-     * @ORM\Column(name="stock", type="string", length=255)
+     * @ORM\ManyToMany(targetEntity="EthnoDoc\PublicationBundle\Entity\Stock", cascade={"persist"})
      */
-    private $stock;
+    private $stocks;
 
     /**
      * @var string
@@ -77,6 +77,7 @@ class SpokenArchiveNote extends Note
         $this->collections = new ArrayCollection();
         $this->witnesses = new ArrayCollection();
         $this->collectors = new ArrayCollection();
+        $this->stocks = new ArrayCollection();
     }
 
     /**
@@ -202,16 +203,26 @@ class SpokenArchiveNote extends Note
     }
 
     /**
-     * Set stock
+     * Add stock
      *
-     * @param string $stock
+     * @param Stock $stock
      * @return spokenArchiveNote
      */
-    public function setStock($stock)
+    public function addStock(Stock $stock)
     {
-        $this->stock = $stock;
+        $this->stocks[] = $stock;
 
         return $this;
+    }
+
+    /**
+     * Remove stock
+     *
+     * @param Stock $stock
+     */
+    public function removeStock(Stock $stock)
+    {
+        $this->stocks->removeElement($stock);
     }
 
     /**
@@ -221,7 +232,7 @@ class SpokenArchiveNote extends Note
      */
     public function getStock()
     {
-        return $this->stock;
+        return $this->stocks;
     }
 
     /**

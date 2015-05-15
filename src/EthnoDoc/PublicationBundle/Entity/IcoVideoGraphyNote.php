@@ -53,9 +53,9 @@ class IcoVideoGraphyNote extends Note
     /**
      * @var string
      *
-     * @ORM\Column(name="stock", type="string", length=255)
+     * @ORM\ManyToMany(targetEntity="EthnoDoc\PublicationBundle\Entity\Stock", cascade={"persist"})
      */
-    private $stock;
+    private $stocks;
 
     /**
      * @var string
@@ -74,6 +74,8 @@ class IcoVideoGraphyNote extends Note
     public function __construct()
     {
         $this->keyWords = new ArrayCollection();
+        $this->stocks = new ArrayCollection();
+        $this->collections = new ArrayCollection();
     }
 
     /**
@@ -212,26 +214,36 @@ class IcoVideoGraphyNote extends Note
     }
 
     /**
-     * Set stock
+     * Add stock
      *
-     * @param string $stock
-     * @return IcoVideoGraphyNote
+     * @param Stock $stock
+     * @return spokenArchiveNote
      */
-    public function setStock($stock)
+    public function addStock(Stock $stock)
     {
-        $this->stock = $stock;
+        $this->stocks[] = $stock;
 
         return $this;
     }
 
     /**
+     * Remove stock
+     *
+     * @param Stock $stock
+     */
+    public function removeStock(Stock $stock)
+    {
+        $this->stocks->removeElement($stock);
+    }
+
+    /**
      * Get stock
      *
-     * @return string 
+     * @return string
      */
     public function getStock()
     {
-        return $this->stock;
+        return $this->stocks;
     }
 
     /**

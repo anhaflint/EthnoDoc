@@ -32,9 +32,9 @@ class EditedMusicalNote extends MusicalNote
     /**
      * @var string
      *
-     * @ORM\Column(name="collection", type="string", length=255)
+     * @ORM\ManyToMany(targetEntity="EthnoDoc\PublicationBundle\Entity\Collection", cascade={"persist"})
      */
-    private $collection;
+    private $collections;
 
     /**
      * @var string
@@ -55,7 +55,7 @@ class EditedMusicalNote extends MusicalNote
      *
      * @ORM\ManyToMany(targetEntity="EthnoDoc\PublicationBundle\Entity\UsesCircumstance", cascade={"persist"})
      */
-    private $usesCircumstance;
+    private $usesCircumstances;
 
     /**
      * @var string
@@ -75,7 +75,8 @@ class EditedMusicalNote extends MusicalNote
     {
         $this->keyWords = new ArrayCollection();
         $this->functionUses = new ArrayCollection();
-        $this->usesCircumstance = new ArrayCollection();
+        $this->usesCircumstances = new ArrayCollection();
+        $this->collections = new ArrayCollection();
         $this->artists = new ArrayCollection();
         $this->instruments = new ArrayCollection();
     }
@@ -126,7 +127,7 @@ class EditedMusicalNote extends MusicalNote
      */
     public function addUsesCircumstance(UsesCircumstance $usesCircumstance)
     {
-        $this->usesCircumstance[] = $usesCircumstance;
+        $this->usesCircumstances[] = $usesCircumstance;
 
         return $this;
     }
@@ -138,7 +139,7 @@ class EditedMusicalNote extends MusicalNote
      */
     public function removeUsesCircumstance(UsesCircumstance $usesCircumstance)
     {
-        $this->usesCircumstance->removeElement($usesCircumstance);
+        $this->usesCircumstances->removeElement($usesCircumstance);
     }
 
     /**
@@ -148,7 +149,7 @@ class EditedMusicalNote extends MusicalNote
      */
     public function getUsesCircumstance()
     {
-        return $this->usesCircumstance;
+        return $this->usesCircumstances;
     }
 
     /**
@@ -236,26 +237,36 @@ class EditedMusicalNote extends MusicalNote
     }
 
     /**
-     * Set collection
+     * Add collection
      *
-     * @param string $collection
+     * @param Collection $collection
      * @return EditedMusicalNote
      */
-    public function setCollection($collection)
+    public function addCollection(Collection $collection)
     {
-        $this->collection = $collection;
+        $this->collections[] = $collection;
 
         return $this;
     }
 
     /**
-     * Get collection
+     * Remove Collection
+     *
+     * @param Collection $collection
+     */
+    public function removeCollection(Collection $collection)
+    {
+        $this->collections->removeElement($collection);
+    }
+
+    /**
+     * Get collections
      *
      * @return string 
      */
-    public function getCollection()
+    public function getCollections()
     {
-        return $this->collection;
+        return $this->collections;
     }
 
     /**

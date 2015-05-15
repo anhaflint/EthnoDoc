@@ -62,7 +62,7 @@ class NonEditedMusicalNote extends MusicalNote
      *
      * @ORM\ManyToMany(targetEntity="EthnoDoc\PublicationBundle\Entity\UsesCircumstance", cascade={"persist"})
      */
-    private $usesCircumstance;
+    private $usesCircumstances;
 
     /**
      * @var string
@@ -82,7 +82,7 @@ class NonEditedMusicalNote extends MusicalNote
     {
         $this->keyWords = new ArrayCollection();
         $this->functionUses = new ArrayCollection();
-        $this->usesCircumstance = new ArrayCollection();
+        $this->usesCircumstances = new ArrayCollection();
         $this->expressions = new ArrayCollection();
         $this->collections = new ArrayCollection();
         $this->witnesses = new ArrayCollection();
@@ -130,12 +130,12 @@ class NonEditedMusicalNote extends MusicalNote
     /**
      * Set usesCircumstance
      *
-     * @param UsesCircumstance|string $usesCircumstance
+     * @param UsesCircumstance $usesCircumstance
      * @return HandWrittenNote
      */
     public function addUsesCircumstance(UsesCircumstance $usesCircumstance)
     {
-        $this->usesCircumstance[] = $usesCircumstance;
+        $this->usesCircumstances[] = $usesCircumstance;
 
         return $this;
     }
@@ -147,7 +147,7 @@ class NonEditedMusicalNote extends MusicalNote
      */
     public function removeUsesCircumstance(UsesCircumstance $usesCircumstance)
     {
-        $this->usesCircumstance->removeElement($usesCircumstance);
+        $this->usesCircumstances->removeElement($usesCircumstance);
     }
 
     /**
@@ -157,7 +157,7 @@ class NonEditedMusicalNote extends MusicalNote
      */
     public function getUsesCircumstance()
     {
-        return $this->usesCircumstance;
+        return $this->usesCircumstances;
     }
 
     /**
