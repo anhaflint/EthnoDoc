@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * KeyWord
  *
- * @ORM\Table()
+ * @ORM\Table(name="KeyWord")
  * @ORM\Entity
  */
 class KeyWord

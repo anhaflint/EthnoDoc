@@ -3,6 +3,7 @@
 namespace EthnoDoc\PublicationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * EditedMusicalNote
@@ -50,6 +51,18 @@ class EditedMusicalNote extends MusicalNote
     private $collection;
 
     /**
+     * @var string
+     *
+     * @ORM\ManyToMany(targetEntity="EthnoDoc\PublicationBundle\Entity\KeyWord", cascade={"persist"})
+     */
+    private $keyWords;
+
+    public function __construct()
+    {
+        $this->keyWords = new ArrayCollection();
+    }
+
+    /**
      * Get id
      *
      * @return integer
@@ -58,8 +71,6 @@ class EditedMusicalNote extends MusicalNote
     {
         return $this->id;
     }
-
-
 
     /**
      * Set artist
@@ -151,5 +162,39 @@ class EditedMusicalNote extends MusicalNote
     public function getCollection()
     {
         return $this->collection;
+    }
+
+    /**
+     * add keyWord
+     *
+     * @param KeyWord $keyWord
+     * @internal param string $keyWords
+     * @return Note
+     */
+    public function addKeyWords(KeyWord $keyWord)
+    {
+        $this->keyWords[] = $keyWord;
+
+        return $this;
+    }
+
+    /**
+     * Remove keyword from keywords list
+     *
+     * @param KeyWord $keyWord
+     */
+    public function removeKeyWord(KeyWord $keyWord)
+    {
+        $this->keyWords->removeElement($keyWord);
+    }
+
+    /**
+     * Get all the keywords of a note
+     *
+     * @return string
+     */
+    public function getKeyWords()
+    {
+        return $this->keyWords;
     }
 }

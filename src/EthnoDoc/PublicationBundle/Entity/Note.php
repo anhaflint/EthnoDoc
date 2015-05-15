@@ -2,6 +2,7 @@
 
 namespace EthnoDoc\PublicationBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,39 +31,9 @@ abstract class Note
     /**
      * @var string
      *
-     * @ORM\Column(name="keyWords", type="string", length=255)
-     */
-    private $keyWords;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="url", type="string", length=255, nullable=true)
      */
     private $url;
-
-    /**
-     * Set keyWords
-     *
-     * @param string $keyWords
-     * @return Note
-     */
-    public function setKeyWords($keyWords)
-    {
-        $this->keyWords = $keyWords;
-
-        return $this;
-    }
-
-    /**
-     * Get keyWords
-     *
-     * @return string 
-     */
-    public function getKeyWords()
-    {
-        return $this->keyWords;
-    }
 
     /**
      * Set title
