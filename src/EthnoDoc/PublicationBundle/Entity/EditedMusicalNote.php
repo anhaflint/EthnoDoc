@@ -25,13 +25,6 @@ class EditedMusicalNote extends MusicalNote
     /**
      * @var string
      *
-     * @ORM\Column(name="instrument", type="string", length=255)
-     */
-    private $instrument;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="phonogramTitle", type="string", length=255)
      */
     private $phonogramTitle;
@@ -71,12 +64,20 @@ class EditedMusicalNote extends MusicalNote
      */
     private $artists;
 
+    /**
+     * @var string
+     *
+     * @ORM\ManyToMany(targetEntity="EthnoDoc\PublicationBundle\Entity\Instrument", cascade={"persist"})
+     */
+    private $instruments;
+
     public function __construct()
     {
         $this->keyWords = new ArrayCollection();
         $this->functionUses = new ArrayCollection();
         $this->usesCircumstance = new ArrayCollection();
         $this->artists = new ArrayCollection();
+        $this->instruments = new ArrayCollection();
     }
 
     /**
@@ -153,7 +154,7 @@ class EditedMusicalNote extends MusicalNote
     /**
      * Set artist
      *
-     * @param string $artist
+     * @param Artist $artist
      * @return EditedMusicalNote
      */
     public function addArtist(Artist $artist)
@@ -179,26 +180,36 @@ class EditedMusicalNote extends MusicalNote
     }
 
     /**
-     * Set instrument
+     * add instruments
      *
      * @param string $instrument
      * @return EditedMusicalNote
      */
-    public function setInstrument($instrument)
+    public function addInstrument(Instrument $instrument)
     {
-        $this->instrument = $instrument;
+        $this->instruments[] = $instrument;
 
         return $this;
     }
 
     /**
-     * Get instrument
+     * remove instrument
+     *
+     * @param Instrument $instrument
+     */
+    public function removeInstrument(Instrument $instrument)
+    {
+        $this->instruments->removeElement($instrument);
+    }
+
+    /**
+     * Get instruments
      *
      * @return string 
      */
-    public function getInstrument()
+    public function getInstruments()
     {
-        return $this->instrument;
+        return $this->instruments;
     }
 
     /**
