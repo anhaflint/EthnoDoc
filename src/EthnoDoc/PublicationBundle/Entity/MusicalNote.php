@@ -91,13 +91,6 @@ class MusicalNote extends Note
     /**
      * @var string
      *
-     * @ORM\Column(name="functionUses", type="string", length=255)
-     */
-    private $functionUses;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="coiraultTheme", type="string", length=255)
      */
     private $coiraultTheme;
@@ -375,29 +368,6 @@ class MusicalNote extends Note
     public function getUsesCircumstance()
     {
         return $this->usesCircumstance;
-    }
-
-    /**
-     * Set functionUses
-     *
-     * @param string $functionUses
-     * @return MusicalNote
-     */
-    public function setFunctionUses($functionUses)
-    {
-        $this->functionUses = $functionUses;
-
-        return $this;
-    }
-
-    /**
-     * Get functionUses
-     *
-     * @return string 
-     */
-    public function getFunctionUses()
-    {
-        return $this->functionUses;
     }
 
     /**

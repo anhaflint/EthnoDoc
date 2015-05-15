@@ -102,7 +102,7 @@ class HandWrittenNote extends Note
     /**
      * @var string
      *
-     * @ORM\Column(name="functionUses", type="string", length=255)
+     * @ORM\ManyToMany(targetEntity="EthnoDoc\PublicationBundle\Entity\FunctionUse", cascade={"persist"})
      */
     private $functionUses;
 
@@ -193,6 +193,7 @@ class HandWrittenNote extends Note
     public function __construct()
     {
         $this->keyWords = new ArrayCollection();
+        $this->functionUses = new ArrayCollection();
     }
 
     /**
@@ -466,11 +467,16 @@ class HandWrittenNote extends Note
      * @param string $functionUses
      * @return HandWrittenNote
      */
-    public function setFunctionUses($functionUses)
+    public function addFunctionUse($functionUses)
     {
-        $this->functionUses = $functionUses;
+        $this->functionUses[] = $functionUses;
 
         return $this;
+    }
+
+    public function removeFunctionUse($functionUse)
+    {
+        $this->functionUses->removeElement($functionUse);
     }
 
     /**

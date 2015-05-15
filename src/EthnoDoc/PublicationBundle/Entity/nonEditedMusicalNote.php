@@ -60,6 +60,13 @@ class NonEditedMusicalNote extends MusicalNote
     /**
      * @var string
      *
+     * @ORM\ManyToMany(targetEntity="EthnoDoc\PublicationBundle\Entity\FunctionUse", cascade={"persist"})
+     */
+    private $functionUses;
+
+    /**
+     * @var string
+     *
      * @ORM\ManyToMany(targetEntity="EthnoDoc\PublicationBundle\Entity\KeyWord", cascade={"persist"})
      */
     private $keyWords;
@@ -67,6 +74,7 @@ class NonEditedMusicalNote extends MusicalNote
     public function __construct()
     {
         $this->keyWords = new ArrayCollection();
+        $this->functionUses = new ArrayCollection();
     }
 
     /**
@@ -79,6 +87,33 @@ class NonEditedMusicalNote extends MusicalNote
         return $this->id;
     }
 
+    /**
+     * Set functionUses
+     *
+     * @param string $functionUses
+     * @return HandWrittenNote
+     */
+    public function addFunctionUse($functionUses)
+    {
+        $this->functionUses[] = $functionUses;
+
+        return $this;
+    }
+
+    public function removeFunctionUse($functionUse)
+    {
+        $this->functionUses->removeElement($functionUse);
+    }
+
+    /**
+     * Get functionUses
+     *
+     * @return string
+     */
+    public function getFunctionUses()
+    {
+        return $this->functionUses;
+    }
 
     /**
      * Set witness
