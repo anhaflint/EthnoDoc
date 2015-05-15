@@ -32,9 +32,9 @@ class SpokenArchiveNote extends Note
     /**
      * @var string
      *
-     * @ORM\Column(name="witness", type="string", length=255)
+     * @ORM\ManyToMany(targetEntity="EthnoDoc\PublicationBundle\Entity\Witness", cascade={"persist"})
      */
-    private $witness;
+    private $witnesses;
 
     /**
      * @var string
@@ -75,6 +75,7 @@ class SpokenArchiveNote extends Note
     {
         $this->keyWords = new ArrayCollection();
         $this->collections = new ArrayCollection();
+        $this->witnesses = new ArrayCollection();
     }
 
     /**
@@ -111,27 +112,38 @@ class SpokenArchiveNote extends Note
     }
 
     /**
-     * Set witness
+     * add witness
      *
-     * @param string $witness
-     * @return spokenArchiveNote
+     * @param Witness $witness
+     * @return NonEditedMusicalNote
      */
-    public function setWitness($witness)
+    public function addWitness(Witness $witness)
     {
-        $this->witness = $witness;
+        $this->witnesses[] = $witness;
 
         return $this;
     }
 
     /**
-     * Get witness
+     * Remove witness
      *
-     * @return string 
+     * @param Witness $witness
      */
-    public function getWitness()
+    public function removeWitness(Witness $witness)
     {
-        return $this->witness;
+        $this->witnesses->removeElement($witness);
     }
+
+    /**
+     * Get witnesses
+     *
+     * @return string
+     */
+    public function getWitnesses()
+    {
+        return $this->witnesses;
+    }
+
 
     /**
      * Set collector

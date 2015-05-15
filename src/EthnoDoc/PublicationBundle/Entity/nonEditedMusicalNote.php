@@ -25,13 +25,6 @@ class NonEditedMusicalNote extends MusicalNote
     /**
      * @var string
      *
-     * @ORM\Column(name="witness", type="string", length=255)
-     */
-    private $witness;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="survey", type="string", length=255)
      */
     private $survey;
@@ -78,6 +71,13 @@ class NonEditedMusicalNote extends MusicalNote
      */
     private $expressions;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="witnesses", type="string", length=255)
+     */
+    private $witnesses;
+
     public function __construct()
     {
         $this->keyWords = new ArrayCollection();
@@ -85,6 +85,7 @@ class NonEditedMusicalNote extends MusicalNote
         $this->usesCircumstance = new ArrayCollection();
         $this->expressions = new ArrayCollection();
         $this->collections = new ArrayCollection();
+        $this->witnesses = new ArrayCollection();
     }
 
     /**
@@ -159,26 +160,36 @@ class NonEditedMusicalNote extends MusicalNote
     }
 
     /**
-     * Set witness
+     * add witness
      *
-     * @param string $witness
-     * @return nonEditedMusicalNote
+     * @param Witness $witness
+     * @return NonEditedMusicalNote
      */
-    public function setWitness($witness)
+    public function addWitness(Witness $witness)
     {
-        $this->witness = $witness;
+        $this->witnesses[] = $witness;
 
         return $this;
     }
 
     /**
-     * Get witness
+     * Remove witness
+     *
+     * @param Witness $witness
+     */
+    public function removeWitness(Witness $witness)
+    {
+        $this->witnesses->removeElement($witness);
+    }
+
+    /**
+     * Get witnesses
      *
      * @return string 
      */
-    public function getWitness()
+    public function getWitnesses()
     {
-        return $this->witness;
+        return $this->witnesses;
     }
 
     /**
