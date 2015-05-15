@@ -100,7 +100,7 @@ fos_elastica:
             types:
                 EditedMusicalNote:
                     mappings:
-                        country:
+                        locality:
                             type: string
                             index: not_analyzed
                     persistence:
@@ -112,7 +112,7 @@ fos_elastica:
                         listener: ~
                 NonEditedMusicalNote:
                     mappings:
-                        country:
+                        locality:
                             type: string
                             index: not_analyzed
                     persistence:
@@ -124,7 +124,7 @@ fos_elastica:
                         listener: ~
                 HandWrittenNote:
                     mappings:
-                        country:
+                        locality:
                             type: string
                             index: not_analyzed
                     persistence:
@@ -136,7 +136,7 @@ fos_elastica:
                         listener: ~
                 IcoVideoGraphyNote:
                     mappings:
-                        country:
+                        locality:
                             type: string
                             index: not_analyzed
                     persistence:
@@ -148,7 +148,7 @@ fos_elastica:
                         listener: ~
                 SpokenArchiveNote:
                     mappings:
-                        country :
+                        locality :
                             type: string
                             index: not_analyzed
                     persistence:

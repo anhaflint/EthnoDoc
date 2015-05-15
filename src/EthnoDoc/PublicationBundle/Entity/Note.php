@@ -2,7 +2,6 @@
 
 namespace EthnoDoc\PublicationBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -59,29 +58,6 @@ abstract class Note
     }
 
     /**
-     * Set country
-     *
-     * @param string $country
-     * @return Note
-     */
-    public function setCountry($country)
-    {
-        $this->country = $country;
-
-        return $this;
-    }
-
-    /**
-     * Get country
-     *
-     * @return string 
-     */
-    public function getCountry()
-    {
-        return $this->country;
-    }
-
-    /**
      * Set url
      *
      * @param string $url
@@ -102,5 +78,28 @@ abstract class Note
     public function getUrl()
     {
         return $this->url;
+    }
+
+    /**
+     * Set locality
+     *
+     * @param string $locality
+     * @return Note
+     */
+    public function setLocality($locality)
+    {
+        $this->locality = $locality;
+
+        return $this;
+    }
+
+    /**
+     * Get locality
+     *
+     * @return string 
+     */
+    public function getLocality()
+    {
+        return $this->locality;
     }
 }
