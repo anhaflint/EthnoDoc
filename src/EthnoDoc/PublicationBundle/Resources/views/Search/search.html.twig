@@ -7,7 +7,7 @@
         <div class="row">
             {% set queryParams = app.request.query.all %}
             {% block searchbar %}
-                {{ include("EthnoDocPublicationBundle:Search:searchBar.html.twig") }}
+                {{ include("EthnoDocPublicationBundle:Search:facets.html.twig") }}
             {%  endblock %}
 
 
