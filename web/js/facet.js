@@ -23,4 +23,21 @@ $("#descriptors li span").each(function(index) {
     $("#" + id).click(function() {
         $("." + id + "descriptors").slideToggle(300);
     });
+
+    var size_li = $('.' + id + 'descriptors li').size();
+    var x = 5;
+    $('.' + id + 'descriptors li:lt(' + x + ')').show();
+    $('#' + id + '_loadMore').click(function () {
+        x = (x + 5 <= size_li) ? x + 5 : size_li;
+        $('.' + id + 'descriptors li:lt(' + x + ')').show();
+        if( x == size_li){
+            $('#' + id + '_loadMore').hide();
+            $('#' + id + '_loadLess').show();
+        }
+    });
+
+    $('#' + id + '_loadLess').click(function () {
+        x = (x - 5 < 2) ? 5 : x - 5;
+        $('.' + id + 'descriptors li').not(':lt(' + x + ')').hide();
+    });
 });
