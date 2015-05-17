@@ -14,41 +14,6 @@ class SearchController extends Controller
 {
     public function searchAction($page, $id, $type, Request $request)
     {
-        /*
-        $note = new EditedMusicalNote();
-        $keyword = new KeyWord();
-        $keyword->setKeyWord('coucou');
-        $note->addKeyWords($keyword);
-        $note->setArtist('artist');
-        $note->setCollection('truc');
-        $note->setInstrument('bi');
-        $note->setPhonogramTitle('cc');
-        $note->setAuthorAncient("kk");
-        $note->setCoiraultNumber('cc');
-        $note->setCoiraultTheme('jj');
-        $note->setCountry('cc');
-        $note->setCulture('jj');
-        $note->setFunctionUses('l');
-        $note->setLaforteNumber('jjj');
-        $note->setLanguage('gg');
-        $note->setAuthorAncient('hh');
-        $note->setLeadInCoupletFR('hh');
-        $note->setLeadInRefrainFR('ll');
-        $note->setLeadInCoupletVO('kk');
-        $note->setLeadInRefrainVO('h');
-        $note->setPrecotationEthnodoc('jj');
-        $note->setPublisherAncient('kk');
-        $note->setTitle('jj');
-        $note->setTraditionalAuthor('j');
-        $note->setTraditionalPublisher('hh');
-        $note->setUrl('h');
-        $note->setUsesCircumstance('jaja');
-        $em = $this->getDoctrine()->getManager();
-
-        $em->persist($note);
-        $em->flush();
-        */
-
         $faceter = $this->container->get('ethno_doc_publication.faceter');
         $index = $this->get('fos_elastica.index.ethnodoc');
         $selected = $request->query->all();
