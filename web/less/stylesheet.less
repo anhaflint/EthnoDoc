@@ -21,7 +21,7 @@ html {
 }
 
 body {
-    padding-top: 50px;
+    padding-top: 60px;
     height: 100%;
 }
 
@@ -56,11 +56,14 @@ body {
 
 
 .navbar {
-    .Shadow;
+
+    font-size : 11px;
     li {
         font-size: 1.3em;
     }
-
+    .dropdown-menu {
+        font-size: 11px;
+    }
     .brand {
         padding-top: 10px;
         color: @lightgrey;
@@ -133,13 +136,16 @@ body {
 
 ._nav {
     text-align: center;
+    margin-bottom: 10px;
     .selected-page {
-        background-color: #337AB7 !important;
-        color: white !important;
+        background-color: #333 !important;
     }
     .dropdownPages {
         height: 180px;
         overflow: auto;
+    }
+    .dropdown-toggle {
+        color : white !important;
     }
 }
 
