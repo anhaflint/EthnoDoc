@@ -5,19 +5,19 @@
             <li class="list-unstyled">
                 {% if facet.terms is not empty %}
                     <span id="{{ facetName }}" class="facetName"><i class="glyphicon glyphicon-plus"></i>&nbsp;{{ facetName }}</span>
-                    <ul class="{{ facetName }}descriptors desc">
+                    <ul class="{{ facetName }}descriptors desc list-unstyled">
 
                         {% for searchTerm in facet.terms %}
                             {% set queryString =  app.request.query.all|merge({(facetName): searchTerm.term|replace(' ', '_')})|url_encode %}
                             {% if loop.index <= 5 %}
-                            <li class="list-unstyled">
+                            <li>
                                 <a id="{{ searchTerm.term }}" href="{{ path('ethnodoc_search') }}?{{ queryString }}">
                                     {{ searchTerm.term }}
                                 </a>
                                 <span class="facetCount">({{ searchTerm.count }})</span>
                             </li>
                             {% else %}
-                            <li class="list-unstyled" style="display: none">
+                            <li style="display: none">
                                 <a id="{{ searchTerm.term }}" href="{{ path('ethnodoc_search') }}?{{ queryString }}">
                                     {{ searchTerm.term }}
                                 </a>
@@ -25,11 +25,12 @@
                             </li>
                             {% endif %}
                         {% endfor %}
+                        {% if facet.terms|length > 5 %}
+                            <li class="loadButton" id="{{ facetName }}_loadMore">Load more...</li>
+                            <li class="loadButton" id="{{ facetName }}_loadLess" style="display: none">Load less...</li>
+                        {% endif %}
                     </ul>
-                    {% if facet.terms|length > 5 %}
-                    <div class="loadButton" id="{{ facetName }}_loadMore">load more...</div>
-                    <div class="loadButton" id="{{ facetName }}_loadLess" style="display: none">Load less...</div>
-                    {% endif %}
+
                 {% endif %}
             </li>
         {% endfor %}

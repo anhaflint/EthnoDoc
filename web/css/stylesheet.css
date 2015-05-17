@@ -141,7 +141,6 @@ body {
   color: dimgrey;
 }
 #facetNav .loadButton {
-  margin-left: 10px;
   color: #737373;
 }
 #facetNav .loadButton:hover {

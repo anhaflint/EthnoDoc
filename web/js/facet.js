@@ -24,13 +24,13 @@ $("#descriptors li span").each(function(index) {
         $("." + id + "descriptors").slideToggle(300);
     });
 
-    var size_li = $('.' + id + 'descriptors li').size();
+    var size_li = $('.' + id + 'descriptors li').size()-2;
     var x = 5;
     $('.' + id + 'descriptors li:lt(' + x + ')').show();
     $('#' + id + '_loadMore').click(function () {
         x = (x + 5 <= size_li) ? x + 5 : size_li;
         $('.' + id + 'descriptors li:lt(' + x + ')').show();
-        if( x == size_li){
+        if( x == size_li ){
             $('#' + id + '_loadMore').hide();
             $('#' + id + '_loadLess').show();
         }
@@ -39,5 +39,10 @@ $("#descriptors li span").each(function(index) {
     $('#' + id + '_loadLess').click(function () {
         x = (x - 5 < 2) ? 5 : x - 5;
         $('.' + id + 'descriptors li').not(':lt(' + x + ')').hide();
+        $(this).show();
+        if(x - 5 <2) {
+            $('#' + id + '_loadMore').show();
+            $('#' + id + '_loadLess').hide();
+        }
     });
 });
