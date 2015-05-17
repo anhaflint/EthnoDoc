@@ -1,0 +1,54 @@
+
+
+facet:
+    action:
+        refine: Affiner la recherche
+        load:
+            more: Charger plus...
+            less: Charger moins...
+    descriptor:
+        name:
+            _type: Type
+            locality: Localité
+            culture: Culture
+            title: Titre
+            decade: Décennie
+note:
+    keys:
+        locality: Localité
+        decade: Décennie
+        publisher: Editeur
+        publisher_number: Numéro d'éditeur
+        survey: Enquête
+        #EditedMusicalNote
+        lead_in_couplet_f_r:
+        lead_in_refrain_f_r:
+        lead_in_couplet_v_o:
+        lead_in_refrain_v_o:
+        author_ancient:
+        traditional_author:
+        publisher_ancient:
+        language: Langage
+        coirault_theme: Thème Coirault
+        coirault_number: Côte Coirault
+        laforte_number: Côté LaForte
+        precotation_ethnodoc: Précôtation EthnoDoc
+        phonogram_title: Titre du phonogramme
+        #handwrittenNote
+        post_card_publisher: Editeur de la carte postale
+        post_card_publisher_number: Numéro d'éditeur de la carte postale
+        witness: Témoin
+        expression: Expression
+        collector: Collecteur
+        collectors: Collecteur(s)
+        collection: Collection
+        collections: Collection(s)
+        #other
+        artists: Artiste(s)
+        key_words: Mots clés
+        uses_circumstance: Circonstances d'usage
+        function_uses: Fonctions
+        stocks: Fonds
+
+
+
