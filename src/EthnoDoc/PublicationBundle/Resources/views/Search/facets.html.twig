@@ -12,7 +12,11 @@
                             {% if loop.index <= 5 %}
                             <li>
                                 <a id="{{ searchTerm.term }}" href="{{ path('ethnodoc_search') }}?{{ queryString }}">
-                                    {{ searchTerm.term }}
+                                    {% if facetName == "_type" %}
+                                        {{ ('facet.descriptor.description.'~searchTerm.term)|trans }}
+                                    {% else %}
+                                        {{ searchTerm.term }}
+                                    {% endif %}
                                 </a>
                                 <span class="facetCount">({{ searchTerm.count }})</span>
                             </li>

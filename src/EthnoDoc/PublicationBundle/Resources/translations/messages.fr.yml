@@ -16,6 +16,12 @@ facet:
             culture: Culture
             title: Titre
             decade: Décennie
+        description:
+            IcoVideoGraphyNote: Iconographies et Vidéographies
+            EditedMusicalNote: Musiques éditées
+            NonEditedMusicalNote: Musiques non éditées
+            HandWrittenNote: Archives Manuscrites
+            SpokenArchiveNote: Archives parlées
 note:
     keys:
         locality: Localité
