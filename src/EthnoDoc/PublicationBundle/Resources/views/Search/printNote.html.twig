@@ -31,9 +31,9 @@
                     {% if key != 'id' and key != 'title' %}
                         <li>
                             {% if value is not iterable%}
-                                <strong>{{ key }} : </strong> {{ value }}
+                                <strong>{{ ('note.keys.'~key)|trans }} : </strong> {{ value }}
                             {% else %}
-                                {{ key }}
+                                {{ ('note.keys.'~key)|trans }}
                                 {% for inValue in value %}
                                     {{ inValue }}
                                     {% if not loop.last %}
@@ -52,7 +52,8 @@
             {#{% set testurl="http://www.raddo-ethnodoc.com/extrait/chanson/1974/085_01_1974_0036.mp3" %}#}
             {#{% set testurl="http://www.raddo-ethnodoc.com/extrait/manuscrit/2015/085_01_2015_0001.pdf" %}#}
             {% if notice.url is defined and notice.url is not null %}
-                <a href="{{ notice.url }}" alt="{{ notice.title }}">Accéder directement à la ressource</a>
+                <a href="{{ notice.url }}" alt="{{ notice.title }}">{{ 'error.direct_access'|trans }}</a>
+                <br/>
                 {% set url = notice.url|split('.')|last %}
                 {% if url == "jpg" or url == "jpeg" %}
                     <img src="{{ notice.url }}" alt="{{ notice.title }}">
@@ -75,7 +76,7 @@
                 {% elseif url == "mp3" %}
                     <audio  controls="controls">
                         <source src="{{ notice.url }}">
-                        Your browser does not support the audio element.
+                        {{ 'error.browser_not_supported.audio'|trans }}
                         <a href="{{ notice.url }}" alt="{{ notice.title }}">Try this link instead</a>
                     </audio>
                 {% elseif url == "pdf" %}

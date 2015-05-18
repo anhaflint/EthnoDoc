@@ -17,7 +17,7 @@
                         {% endif %}
                     {% endfor %}
                     <a href="{{ urlpath }}">
-                        {{ key }} : {{ selection }}
+                        {{ ('facet.descriptor.name.'~key)|trans }} : {{ selection }}
                         <i class="glyphicon glyphicon-remove"></i>
                     </a>
                 </li>

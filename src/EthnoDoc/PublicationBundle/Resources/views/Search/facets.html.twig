@@ -4,7 +4,7 @@
         {% for facetName, facet in facets %}
             <li class="list-unstyled">
                 {% if facet.terms is not empty %}
-                    <span id="{{ facetName }}" class="facetName"><i class="glyphicon glyphicon-plus"></i>&nbsp;{{ facetName }}</span>
+                    <span id="{{ facetName }}" class="facetName"><i class="glyphicon glyphicon-plus"></i>&nbsp;{{ ('facet.descriptor.name.'~facetName)|trans }}</span>
                     <ul class="{{ facetName }}descriptors desc list-unstyled">
 
                         {% for searchTerm in facet.terms %}
@@ -26,8 +26,8 @@
                             {% endif %}
                         {% endfor %}
                         {% if facet.terms|length > 5 %}
-                            <li class="loadButton" id="{{ facetName }}_loadMore">Load more...</li>
-                            <li class="loadButton" id="{{ facetName }}_loadLess" style="display: none">Load less...</li>
+                            <li class="loadButton" id="{{ facetName }}_loadMore">{{ 'facet.action.load.more'|trans }}</li>
+                            <li class="loadButton" id="{{ facetName }}_loadLess" style="display: none">{{ 'facet.action.load.less'|trans }}</li>
                         {% endif %}
                     </ul>
 

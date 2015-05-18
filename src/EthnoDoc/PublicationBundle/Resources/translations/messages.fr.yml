@@ -6,6 +6,8 @@ facet:
         load:
             more: Charger plus...
             less: Charger moins...
+        found_one: résultat trouvé
+        found_several: résultats trouvés
     descriptor:
         name:
             _type: Type
@@ -21,13 +23,15 @@ note:
         publisher_number: Numéro d'éditeur
         survey: Enquête
         #EditedMusicalNote
-        lead_in_couplet_f_r:
-        lead_in_refrain_f_r:
-        lead_in_couplet_v_o:
-        lead_in_refrain_v_o:
-        author_ancient:
-        traditional_author:
-        publisher_ancient:
+        lead_in_couplet_f_r: Incipit du couplet (FR)
+        lead_in_refrain_f_r: Incipit du refrain (FR)
+        lead_in_couplet_v_o: Incipit du couplet (VO)
+        lead_in_refrain_v_o: Incipit du refrain (VO)
+        author_ancient: Auteur ancient
+        traditional_author: Auteur folklorique
+        traditional_publisher: Editeur folklorique
+        culture: Culture
+        publisher_ancient: Editeur ancient
         language: Langage
         coirault_theme: Thème Coirault
         coirault_number: Côte Coirault
@@ -46,9 +50,13 @@ note:
         #other
         artists: Artiste(s)
         key_words: Mots clés
-        uses_circumstance: Circonstances d'usage
+        uses_circumstances: Circonstances d'usage
         function_uses: Fonctions
         stocks: Fonds
-
-
+error:
+    browser_note_supported:
+        audio: Votre navigateur ne supporte pas l'élément Audio
+        pdf: Votre navigateur ne supporte pas l'élément pdf
+        mov: Votre navigateur ne supporte pas l'élément Vidéo
+    direct_access: Accéder directement à la ressource
 
