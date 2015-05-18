@@ -8,6 +8,7 @@ facet:
             less: Charger moins...
         found_one: résultat trouvé
         found_several: résultats trouvés
+        selection: Sélection
     descriptor:
         name:
             _type: Type

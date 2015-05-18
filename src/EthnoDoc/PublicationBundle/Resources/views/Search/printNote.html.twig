@@ -15,7 +15,7 @@
             {% endfor %}
                 <li>
                     <a href="{{ app.request.uri|replace( {(type)~'/' : '', (notice.id) : ''})|replace( { (page)~'/' : page}) }}">
-                        Sélection : {{ notice.title }}
+                        {{ 'facet.action.selection'|trans }} : {{ notice.title }}
                         <i class="glyphicon glyphicon-remove"></i>
                     </a>
                 </li>
