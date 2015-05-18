@@ -84,8 +84,12 @@ class SearchController extends Controller
                 $names[$key]['type'] = $result->getType();
                 $hit = null;
                 foreach($result->getData() as  $data) {
-                    if(stripos($data, $searchPhrase)!== false) {
+                    if(!is_array($data) and stripos($data, $searchPhrase)!== false) {
                         $hit = $data;
+                    } elseif(is_array($data)) {
+                        foreach($data as $key => $value) {
+                            $hit = (stripos($value, $searchPhrase) !== false) ? $value : null;
+                        }
                     }
                 }
                 $names[$key]['hit'] = $hit;

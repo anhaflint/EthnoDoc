@@ -55,7 +55,7 @@
                 <a href="{{ notice.url }}" alt="{{ notice.title }}">Accéder directement à la ressource</a>
                 {% set url = notice.url|split('.')|last %}
                 {% if url == "jpg" or url == "jpeg" %}
-                    <img src="{{ testurl }}" alt="{{ notice.title }}">
+                    <img src="{{ notice.url }}" alt="{{ notice.title }}">
                 {% elseif url == "mov"%}
                     <div class="embeddedVideo">
                         <object classid='clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B'
