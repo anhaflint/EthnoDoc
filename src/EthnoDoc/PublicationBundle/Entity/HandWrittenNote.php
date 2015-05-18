@@ -138,13 +138,13 @@ class HandWrittenNote extends Note
      *
      * @ORM\ManyToMany(targetEntity="EthnoDoc\PublicationBundle\Entity\Witness", cascade={"persist"})
      */
-    private $witness;
+    private $witnesses;
 
     /**
      *
      * @ORM\ManyToMany(targetEntity="EthnoDoc\PublicationBundle\Entity\Expression", cascade={"persist"})
      */
-    private $expression;
+    private $expressions;
 
     /**
      * @var string
@@ -157,14 +157,14 @@ class HandWrittenNote extends Note
      *
      * @ORM\ManyToMany(targetEntity="EthnoDoc\PublicationBundle\Entity\Collector", cascade={"persist"})
      */
-    private $collector;
+    private $collectors;
 
     /**
      *
      *
      * @ORM\ManyToMany(targetEntity="EthnoDoc\PublicationBundle\Entity\Collection", cascade={"persist"})
      */
-    private $collection;
+    private $collections;
 
     /**
      *
@@ -178,7 +178,7 @@ class HandWrittenNote extends Note
      *
      * @ORM\ManyToMany(targetEntity="EthnoDoc\PublicationBundle\Entity\UsesCircumstance", cascade={"persist"})
      */
-    private $usesCircumstance;
+    private $usesCircumstances;
 
     /**
      * @var string
@@ -191,7 +191,10 @@ class HandWrittenNote extends Note
     {
         $this->keyWords = new ArrayCollection();
         $this->functionUses = new ArrayCollection();
-        $this->usesCircumstance = new ArrayCollection();
+        $this->usesCircumstances = new ArrayCollection();
+        $this->collections = new ArrayCollection();
+        $this->collectors = new ArrayCollection();
+        $this->expressions = new ArrayCollection();
     }
 
     /**
@@ -444,7 +447,7 @@ class HandWrittenNote extends Note
      */
     public function addUsesCircumstance(UsesCircumstance $usesCircumstance)
     {
-        $this->usesCircumstance[] = $usesCircumstance;
+        $this->usesCircumstances[] = $usesCircumstance;
 
         return $this;
     }
@@ -456,7 +459,7 @@ class HandWrittenNote extends Note
      */
     public function removeUsesCircumstance(UsesCircumstance $usesCircumstance)
     {
-        $this->usesCircumstance->removeElement($usesCircumstance);
+        $this->usesCircumstances->removeElement($usesCircumstance);
     }
 
     /**
@@ -466,7 +469,7 @@ class HandWrittenNote extends Note
      */
     public function getUsesCircumstance()
     {
-        return $this->usesCircumstance;
+        return $this->usesCircumstances;
     }
 
     /**
@@ -636,14 +639,14 @@ class HandWrittenNote extends Note
     }
 
     /**
-     * Set witness
+     * Add witness
      *
-     * @param string $witness
+     * @param Witness $witness
      * @return HandWrittenNote
      */
-    public function setWitness($witness)
+    public function addWitness(Witness $witness)
     {
-        $this->witness = $witness;
+        $this->witnesses = $witness;
 
         return $this;
     }
@@ -659,16 +662,23 @@ class HandWrittenNote extends Note
     }
 
     /**
-     * Set expression
+     * Add expression
      *
-     * @param string $expression
+     * @param \EthnoDoc\PublicationBundle\Entity\Expression $expression
      * @return HandWrittenNote
      */
-    public function setExpression($expression)
+    public function addExpression(Expression $expression)
     {
-        $this->expression = $expression;
+        $this->expressions[] = $expression;
 
         return $this;
+    }
+
+    /**
+     * @param Expression $expression
+     */
+    public function removeExpression(Expression $expression) {
+        $this->expressions->removeElement($expression);
     }
 
     /**
@@ -678,7 +688,7 @@ class HandWrittenNote extends Note
      */
     public function getExpression()
     {
-        return $this->expression;
+        return $this->expressions;
     }
 
     /**
@@ -705,16 +715,23 @@ class HandWrittenNote extends Note
     }
 
     /**
-     * Set collector
+     * Add collector
      *
-     * @param string $collector
+     * @param Collector $collector
      * @return HandWrittenNote
      */
-    public function setCollector($collector)
+    public function addCollector(Collector $collector)
     {
-        $this->collector = $collector;
+        $this->collectors[] = $collector;
 
         return $this;
+    }
+
+    /**
+     * @param Collector $collector
+     */
+    public function removeCollector(Collector $collector) {
+        $this->collectors->removeElement($collector);
     }
 
     /**
@@ -724,20 +741,27 @@ class HandWrittenNote extends Note
      */
     public function getCollector()
     {
-        return $this->collector;
+        return $this->collectors;
     }
 
     /**
-     * Set collection
+     * Add collection
      *
-     * @param string $collection
+     * @param Collection $collection
      * @return HandWrittenNote
      */
-    public function setCollection($collection)
+    public function addCollection(Collection $collection)
     {
-        $this->collection = $collection;
+        $this->collections[] = $collection;
 
         return $this;
+    }
+
+    /**
+     * @param Collection $collection
+     */
+    public function removeCollection(Collection $collection) {
+        $this->collections->removeElement($collection);
     }
 
     /**
@@ -747,7 +771,7 @@ class HandWrittenNote extends Note
      */
     public function getCollection()
     {
-        return $this->collection;
+        return $this->collections;
     }
 
     /**
