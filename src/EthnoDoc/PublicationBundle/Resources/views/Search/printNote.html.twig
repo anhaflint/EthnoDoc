@@ -8,7 +8,7 @@
             {% for key, q_selection in queryParams %}
                 <li>
                     <a href="{{ app.request.uri|replace( {(key) : '', (q_selection) : '', (type)~'/' : '', (notice.id) : ''})|replace( { (page)~'/' : page}) }}">
-                        {{ key }} : {{ q_selection }}
+                        {{ ('facet.descriptor.name.'~key)|trans }} : {{ q_selection }}
                         <i class="glyphicon glyphicon-remove"></i>
                     </a>
                 </li>
