@@ -58,8 +58,14 @@ class SearchController extends Controller
         //Display textual search results
         if($request->getMethod() === 'POST') {
             $form->handleRequest($request);
-            $data = $form->getData()['search'];
-            $results = $index->search('*'.$data.'*', 20)->getResults();
+            $searchPhrase = $form->getData()['search'];
+            $searchPhrase = explode(' ', $searchPhrase);
+            $results = [];
+            foreach($searchPhrase as $key => $word) {
+                $results[] = $index->search('*'.$word.'*', 20)->getResults();
+            }
+
+            var_dump($results);
         }
 
         return $this->render('EthnoDocPublicationBundle:Search:search.html.twig', array(

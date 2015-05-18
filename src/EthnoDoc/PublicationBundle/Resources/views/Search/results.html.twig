@@ -4,29 +4,31 @@
     {% else %}
         {% set dataResults = results %}
     {% endif %}
-    {% for result in dataResults %}
-        {% if loop.first or loop.index % 5 == 0 %}
-            <div class="row">
-        {% endif %}
-        <div class="result-display col-xs-6 col-md-2 col-lg-2">
-            <a href="{{ path('ethnodoc_search', {'id' : result.data.id , 'type' : result.type }) }}?{{ queryParams|url_encode }}" class="thumbnail">
-                {% if result.url is defined and result.url is not null %}
-                    {% set extension = result.url|split('.')|last %}
-                    {% if  extension == 'jpg' or extension == 'jpeg' %}
-                        <img src="{{ result.url }}" alt="{{ result.data.title }}"/>
-                    {% elseif extension == 'mp3' %}
-                        <div><i class="glyphicon glyphicon-music"></i></div>
-                    {% elseif extension == "mov" %}
-                        <div><i class="glyphicon glyphicon-film"></i></div>
-                    {% elseif extension == "pdf" %}
-                        <div><i class="glyphicon glyphicon-list-alt"></i></div>
+    {% for resultSet in dataResults %}
+        {% for result in resultSet %}
+            {% if loop.first or loop.index % 5 == 0 %}
+                <div class="row">
+            {% endif %}
+            <div class="result-display col-xs-6 col-md-2 col-lg-2">
+                <a href="{{ path('ethnodoc_search', {'id' : result.data.id , 'type' : result.type }) }}?{{ queryParams|url_encode }}" class="thumbnail">
+                    {% if result.url is defined and result.url is not null %}
+                        {% set extension = result.url|split('.')|last %}
+                        {% if  extension == 'jpg' or extension == 'jpeg' %}
+                            <img src="{{ result.url }}" alt="{{ result.data.title }}"/>
+                        {% elseif extension == 'mp3' %}
+                            <div><i class="glyphicon glyphicon-music"></i></div>
+                        {% elseif extension == "mov" %}
+                            <div><i class="glyphicon glyphicon-film"></i></div>
+                        {% elseif extension == "pdf" %}
+                            <div><i class="glyphicon glyphicon-list-alt"></i></div>
+                        {% endif %}
                     {% endif %}
-                {% endif %}
-                <small>{{ result.data.title }}</small>
-            </a>
-        </div>
-        {% if loop.index % 5 == 0 or loop.last %}
+                    <small>{{ result.data.title }}</small>
+                </a>
             </div>
-        {% endif %}
+            {% if loop.index % 5 == 0 or loop.last %}
+                </div>
+            {% endif %}
+        {% endfor %}
     {% endfor %}
 {% endif %}
