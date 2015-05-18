@@ -135,16 +135,14 @@ class HandWrittenNote extends Note
     private $postCardPublisherNumber;
 
     /**
-     * @var string
      *
-     * @ORM\Column(name="witness", type="string", length=255)
+     * @ORM\ManyToMany(targetEntity="EthnoDoc\PublicationBundle\Entity\Witness", cascade={"persist"})
      */
     private $witness;
 
     /**
-     * @var string
      *
-     * @ORM\Column(name="expression", type="string", length=255)
+     * @ORM\ManyToMany(targetEntity="EthnoDoc\PublicationBundle\Entity\Expression", cascade={"persist"})
      */
     private $expression;
 
@@ -156,21 +154,20 @@ class HandWrittenNote extends Note
     private $survey;
 
     /**
-     * @var string
      *
-     * @ORM\Column(name="collector", type="string", length=255)
+     * @ORM\ManyToMany(targetEntity="EthnoDoc\PublicationBundle\Entity\Collector", cascade={"persist"})
      */
     private $collector;
 
     /**
-     * @var string
      *
-     * @ORM\Column(name="collection", type="string", length=255)
+     *
+     * @ORM\ManyToMany(targetEntity="EthnoDoc\PublicationBundle\Entity\Collection", cascade={"persist"})
      */
     private $collection;
 
     /**
-     * @var string
+     *
      *
      * @ORM\ManyToMany(targetEntity="EthnoDoc\PublicationBundle\Entity\KeyWord", cascade={"persist"})
      */

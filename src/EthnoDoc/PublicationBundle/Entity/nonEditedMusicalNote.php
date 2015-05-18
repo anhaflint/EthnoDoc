@@ -74,7 +74,7 @@ class NonEditedMusicalNote extends MusicalNote
     /**
      * @var string
      *
-     * @ORM\Column(name="witnesses", type="string", length=255)
+     * @ORM\ManyToMany(targetEntity="EthnoDoc\PublicationBundle\Entity\Witness", cascade={"persist"})
      */
     private $witnesses;
 
