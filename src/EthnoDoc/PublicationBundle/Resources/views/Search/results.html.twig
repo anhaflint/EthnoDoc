@@ -4,11 +4,11 @@
     {% else %}
         {% set dataResults = results %}
     {% endif %}
-    {% for resultSet in dataResults %}
-        {% for result in resultSet %}
+    {% for result in dataResults %}
             {% if loop.first or loop.index % 5 == 0 %}
                 <div class="row">
             {% endif %}
+            {% if result.data is defined %}
             <div class="result-display col-xs-6 col-md-2 col-lg-2">
                 <a href="{{ path('ethnodoc_search', {'id' : result.data.id , 'type' : result.type }) }}?{{ queryParams|url_encode }}" class="thumbnail">
                     {% if result.url is defined and result.url is not null %}
@@ -26,9 +26,9 @@
                     <small>{{ result.data.title }}</small>
                 </a>
             </div>
+            {% endif %}
             {% if loop.index % 5 == 0 or loop.last %}
                 </div>
             {% endif %}
-        {% endfor %}
     {% endfor %}
 {% endif %}

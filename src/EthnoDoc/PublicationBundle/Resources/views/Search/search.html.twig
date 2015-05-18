@@ -21,7 +21,7 @@
                     {{ include('EthnoDocPublicationBundle:Search:resultNumber.html.twig') }}
                     <!-- Search Form -->
                     <div>
-                        {{ form_start(form, {'attr': {'class': 'col-xs-8 pull-right form-inline'} }) }}
+                        {{ form_start(form, {'method' : 'GET', 'attr': {'class': 'col-xs-8 pull-right form-inline'} }) }}
                             {{ form_errors(form) }}
                             <div id="searchBar" class="col-xs-8 form-group">
                                 {{ form_widget(form.search, {'attr' : {'class' : 'typeahead form-control', 'placeholder' : 'Rechercher'} }) }}

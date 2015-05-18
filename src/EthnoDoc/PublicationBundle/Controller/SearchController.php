@@ -61,11 +61,15 @@ class SearchController extends Controller
             $searchPhrase = $form->getData()['search'];
             $searchPhrase = explode(' ', $searchPhrase);
             $results = [];
+            $count = 0;
             foreach($searchPhrase as $key => $word) {
-                $results[] = $index->search('*'.$word.'*', 20)->getResults();
+                $res = $index->search('*'.$word.'*', 20)->getResults();
+                foreach($res as $resKey => $resValue) {
+                    $results[] = $resValue;
+                }
+                $count += count($res);
             }
-
-            var_dump($results);
+            $results['totalHits'] = $count;
         }
 
         return $this->render('EthnoDocPublicationBundle:Search:search.html.twig', array(
