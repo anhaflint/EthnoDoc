@@ -103,6 +103,9 @@ body {
   min-height: 20px;
   min-width: 50px;
 }
+.register {
+  text-align: center;
+}
 /**
  * Pagination
  */

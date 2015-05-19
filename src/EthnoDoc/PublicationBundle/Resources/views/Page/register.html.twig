@@ -1,7 +1,43 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}EthnoDocPublicationBundle:Page:register{% endblock %}
+{% block title %}S'abonner au réseau{% endblock %}
 
 {% block body %}
-<h1>Welcome to the Page:register page</h1>
+    <div class="container-fluid">
+        <h1>S'abonner au réseau</h1>
+        <hr/>
+        <h2>Nous proposons plusieurs abonnements :</h2>
+        <div class="row">
+            <div class="col-sm-6 col-md-4 register">
+                <div class="thumbnail">
+                    <i class="glyphicon glyphicon-euro"></i>
+                    <div class="caption">
+                        <h3>Abonnement ponctuel</h3>
+                        <h4>1€ / document consulté</h4>
+                        <p>Vous permet d'accéder à des ressources lorsque vous le souhaitez en étant débité sur votre compte directement</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 register">
+                <div class="thumbnail">
+                    <i class="glyphicon glyphicon-envelope"></i>
+                    <div class="caption">
+                        <h3>Abonnement mensuel</h3>
+                        <h4>30€ / mois</h4>
+                        <p>Vous permet d'accéder à un contenu éditorialisé choisi chaque mois en fonction de vos préférences pour vous faire découvrir notre base de données plus sereinement !</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 register">
+                <div class="thumbnail">
+                    <i class="glyphicon glyphicon-th"></i>
+                    <div class="caption">
+                        <h3>Abonnement Consultation centre d'archives</h3>
+                        <h4>500€ / mois</h4>
+                        <p>Permet à votre centre d'archives et à vos utilisateurs d'accéder à toutes les ressources de notre base de données dans vos centres ! </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
