@@ -1,0 +1,26 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}EthnoDocPublicationBundle:Page:network{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <h1>Présentation du réseau</h1>
+    <hr/>
+    <div class="row col-xs-6 col-md-4 col-lg-4">
+        <h2>Présentation</h2>
+        <p>
+            Le 'RADdO' est un réseau de bases de données - personnelles, associatives, universitaires ou de collectivités territoriales - de structures partageant un même outil de gestion de leurs archives iconographiques et audiovisuelles permettant de reconstituer des éco-systèmes socio-culturels. Le réseau est animé par EthnoDoc, centre de documentation du patrimoine culturel immatériel, qui administre la base de données.
+        </p>
+        Vous pouvez visiter la base de données en cliquant <a href="{{ path('ethnodoc_search') }}">ici</a>.
+        Lien vers la base de données du patrimoine oral de <a href="http://www.raddo-ethnodoc.com/cg74/">Haute Savoie</a>
+    </div>
+    <div class="row col-xs-6 col-md-4 col-lg-4">
+        <div class="thumbnail" >
+            <img src="{{ asset('img/map.jpg') }}" alt="Patrimoine 2012 journée">
+            <div class="caption">
+                <h3><a href="https://www.google.com/maps/d/viewer?t=h&ll=46.980252,-1.428223&ie=UTF8&msa=0&spn=1.86256,3.532104&z=8&hl=fr&mid=z3Xh_o5-JY34.kwfc3v2P6ZUo">Carte des térritoires du réseau RADdO</a> </h3>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
