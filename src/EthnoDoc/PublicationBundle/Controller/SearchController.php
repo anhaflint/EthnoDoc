@@ -20,26 +20,65 @@ class SearchController extends Controller
         foreach($selected as $key => $select) {
             $selected[$key] = str_replace('_', ' ', $selected[$key]);
         }
+        $selectedFilter = $selected;
+        if(array_key_exists('search', $selectedFilter)) {
+            unset($selectedFilter['search']);
+        }
 
         $results = null;
         $notice = null;
         $data = array();
 
         // Form creation
-        $form = $this->createFormBuilder($data)
-            ->add('search', 'text')
-            ->add('Rechercher', 'submit')
-            ->getForm();
+        $form = $this->get('form.factory')->createNamedBuilder('', 'form', $data, array(
+                        'csrf_protection' => false,
+                    ))->setMethod('GET')
+                    ->add('search', 'text')
+                    ->add('Rechercher', 'submit')
+                    ->getForm();
 
         //get facet collection according to user's selection
         $facets = $faceter->getFacetCollection(
-            array('_type', 'locality', 'culture', 'title', 'decade'), $faceter->getFilter($selected)
+            array('_type', 'locality', 'culture', 'title', 'decade'), $faceter->getFilter($selectedFilter)
         );
 
         //Build Query
-        $results = $faceter->getFacetSelection($selected, $page);
+        $results = $faceter->getFacetSelection($selectedFilter, $page);
+
+        if(null !== $results && $results->getTotalHits()) {
+            $nbResults = $results->getTotalHits();
+        } else {
+            $nbResults = $facets['locality']['total'];
+        }
+
+        //Display textual search results
+        if($request->getMethod() === 'GET') {
+            $form->handleRequest($request);
+            if(array_key_exists('search',$form->getData())) {
+                $searchPhrase = explode(' ', $form->getData()['search']);
+                $results = [];
+                foreach($searchPhrase as $key => $word) {
+                    $res = $index->search('*'.$word.'*', 20)->getResults();
+                    foreach($res as $resKey => $resValue) {
+                        if(!in_array($resValue, $results)) {
+                            $results[] = $resValue;
+                        }
+                    }
+                }
+                $paginatedResults = [];
+                foreach($results as $key => $result) {
+                    if($key >= ($page -1)*10 and $key <= 10*$page-1 and $key !== 'totalHits') {
+                        $paginatedResults[] = $result ;
+                    }
+                }
+                $paginatedResults['totalHits'] = count($results);
+                $nbResults = count($results);
+                $results = $paginatedResults;
+            }
+        }
 
 
+        $nbPages = ceil($nbResults/10);
 
         //Display selected note on user's selection
         if( null !== $id && null !== $type) {
@@ -51,25 +90,10 @@ class SearchController extends Controller
                 'notice' => $notice[0]->getData(),
                 'type' => $type,
                 'page' => $page,
+                'nbPages' => $nbPages,
+                'nbResults' => $nbResults,
                 'form' => $form->createView()
             ));
-        }
-
-        //Display textual search results
-        if($request->getMethod() === 'POST') {
-            $form->handleRequest($request);
-            $searchPhrase = $form->getData()['search'];
-            $searchPhrase = explode(' ', $searchPhrase);
-            $results = [];
-            $count = 0;
-            foreach($searchPhrase as $key => $word) {
-                $res = $index->search('*'.$word.'*', 20)->getResults();
-                foreach($res as $resKey => $resValue) {
-                    $results[] = $resValue;
-                }
-                $count += count($res);
-            }
-            $results['totalHits'] = $count;
         }
 
         return $this->render('EthnoDocPublicationBundle:Search:search.html.twig', array(
@@ -77,6 +101,8 @@ class SearchController extends Controller
             'results' => $results,
             'facets' => $facets,
             'page' => $page,
+            'nbPages' => $nbPages,
+            'nbResults' => $nbResults,
             'form' => $form->createView()
         ));
     }
