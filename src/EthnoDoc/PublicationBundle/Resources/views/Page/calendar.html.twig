@@ -1,0 +1,20 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}EthnoDocPublicationBundle:Page:calendar{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <h1>Calendrier : Evennements à venir</h1>
+    <hr/>
+    <div class="row">
+        <div class="list-group  col-xs-6 col-md-3 col-lg-3 col-md-offset-1 col-lg-offset-1">
+            <a href="ethnodoc.univ-nantes.fr" alt="projet ethnodoc" class="list-group-item active">
+                <h4><strong>29 mai :</strong> Test du projet ethnodoc !</h4>
+            </a>
+            <a href="#" alt="projet ethnodoc" class="list-group-item">
+                <h4><strong>33 mai :</strong> Rassemblement des membres actifs</h4>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
