@@ -28,12 +28,12 @@
         <div class="col-md-6">
             <ul class="list-unstyled">
                 {% for key, value in notice %}
-                    {% if key != 'id' and key != 'title' %}
+                    {% if key != 'id' and key != 'title' and key != 'url' %}
                         <li>
                             {% if value is not iterable%}
                                 <strong>{{ ('note.keys.'~key)|trans }} : </strong> {{ value }}
                             {% else %}
-                                {{ ('note.keys.'~key)|trans }}
+                                <strong>{{ ('note.keys.'~key)|trans }} : </strong>
                                 {% for inValue in value %}
                                     {{ inValue }}
                                     {% if not loop.last %}
