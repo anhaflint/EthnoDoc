@@ -13,22 +13,17 @@
             <div id="content" class="col-md-9 col-xs-8 col-lg-10 ">
                 <!--search bar-->
                 <div class="row">
-                    {% if results is not null and results.totalHits is defined %}
-                        {% set nbResults = results.totalHits %}
-                    {% else %}
-                        {% set nbResults = facets.locality.total %}
-                    {% endif %}
                     {{ include('EthnoDocPublicationBundle:Search:resultNumber.html.twig') }}
                     <!-- Search Form -->
                     <div>
-                        {{ form_start(form, {'method' : 'GET', 'attr': {'class': 'col-xs-8 pull-right form-inline'} }) }}
-                            {{ form_errors(form) }}
+                        <form id="searchForm" action="{{ path('ethnodoc_search') }}" method="get" {{ form_enctype(form) }} class="col-xs-8 pull-right form-inline">
                             <div id="searchBar" class="col-xs-8 form-group">
                                 {{ form_widget(form.search, {'attr' : {'class' : 'typeahead form-control', 'placeholder' : 'Rechercher'} }) }}
                             </div>
-                            {{ form_widget(form.Rechercher, {'attr' : {'class' : 'btn btn-default'} }) }}
-                            {{ form_rest(form) }}
-                        {{ form_end(form) }}
+
+                            <input type="submit" class="btn btn-default" value="{{ 'form.action.search'|trans }}">
+                        </form>
+
                     </div><!-- ./search form -->
                 </div>
                 {% block ariane %}
