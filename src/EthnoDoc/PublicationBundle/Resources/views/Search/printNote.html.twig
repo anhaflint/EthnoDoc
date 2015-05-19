@@ -12,7 +12,7 @@
                         {% if key == '_type' %}
                             {{ ('facet.descriptor.description.'~q_selection)|trans }}
                         {% else %}
-                            {{ q_selection|trans }}
+                            {{ q_selection }}
                         {% endif %}
                         <i class="glyphicon glyphicon-remove"></i>
                     </a>
