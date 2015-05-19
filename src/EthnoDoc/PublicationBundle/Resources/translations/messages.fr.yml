@@ -1,5 +1,7 @@
 
-
+form:
+    action:
+        search: Rechercher
 facet:
     action:
         refine: Affiner la recherche
@@ -16,6 +18,7 @@ facet:
             culture: Culture
             title: Titre
             decade: Décennie
+            search: Recherche
         description:
             IcoVideoGraphyNote: Iconographies et Vidéographies
             EditedMusicalNote: Musiques éditées
