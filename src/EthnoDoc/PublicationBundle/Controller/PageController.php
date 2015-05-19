@@ -6,6 +6,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class PageController extends Controller
 {
+    public function homeAction() {
+        return $this->render('EthnoDocPublicationBundle:Page:home.html.twig', array(
+
+        ));
+    }
+
     public function projectsAction()
     {
         return $this->render('EthnoDocPublicationBundle:Page:projects.html.twig', array(
