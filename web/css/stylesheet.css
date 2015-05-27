@@ -55,6 +55,7 @@ body {
  * Footer
  */
 #footer {
+  color: #dcdcdc;
   background-color: #333333;
   height: 90px;
   bottom: 0px;
@@ -62,6 +63,10 @@ body {
   width: 100%;
   padding-top: 10px;
   text-align: center;
+}
+#footer .small {
+  font-size: 10px;
+  text-align: left;
 }
 #footer div {
   height: 70px;
